@@ -1,0 +1,6 @@
+{
+  "appTitle": "sane_gallery",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
