@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sane_gallery/src/gifs/gifs_view.dart';
 
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
@@ -64,7 +65,7 @@ class SaneGallery extends StatelessWidget {
                     );
                   case SampleItemListView.routeName:
                   default:
-                    return SampleItemListView(controller: settingsController);
+                    return GifsView(settingController: settingsController);
                 }
               },
             );

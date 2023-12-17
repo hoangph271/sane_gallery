@@ -14,7 +14,7 @@ class SampleItemListView extends StatelessWidget {
     required SettingsController controller,
   });
 
-  static const routeName = '/';
+  static const routeName = '/SampleItemListView';
 
   final List<SampleItem> items;
 
