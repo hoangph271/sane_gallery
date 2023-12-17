@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sane_gallery/src/shared/sane_padding.dart';
 
 import 'settings_controller.dart';
 
@@ -22,13 +23,11 @@ class SettingsView extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Padding(
-                padding: const EdgeInsets.all(16.0),
+            SanePadding(
                 child: Text(
-                  'Favorite count: ${controller.favoriteIds.length}',
-                )),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+              'Favorite count: ${controller.favoriteIds.length}',
+            )),
+            SanePadding(
               child: DropdownButton<ThemeMode>(
                 value: controller.themeMode,
                 onChanged: controller.updateThemeMode,
@@ -48,8 +47,7 @@ class SettingsView extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            SanePadding(
               child: TextField(
                 readOnly: true,
                 controller: TextEditingController(text: controller.apiRoot),
@@ -60,8 +58,7 @@ class SettingsView extends StatelessWidget {
                 keyboardType: TextInputType.url,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            SanePadding(
               child: TextField(
                 readOnly: true,
                 controller: TextEditingController(text: controller.apiKey),
