@@ -23,6 +23,11 @@ class SettingsView extends StatelessWidget {
         child: Column(
           children: [
             Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Favorite count: ${controller.favoriteIds.length}',
+                )),
+            Padding(
               padding: const EdgeInsets.all(16.0),
               child: DropdownButton<ThemeMode>(
                 value: controller.themeMode,
@@ -70,8 +75,8 @@ class SettingsView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
-                controller:
-                    TextEditingController(text: controller.searchLimit.toString()),
+                controller: TextEditingController(
+                    text: controller.searchLimit.toString()),
                 decoration: const InputDecoration(
                   labelText: 'Search Limit',
                   border: OutlineInputBorder(),
