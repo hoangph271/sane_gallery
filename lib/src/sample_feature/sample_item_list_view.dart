@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sane_gallery/src/settings/settings_controller.dart';
+import 'package:sane_gallery/src/shared/sane_padding.dart';
 
 import '../settings/settings_view.dart';
 import 'sample_item.dart';
@@ -9,6 +11,7 @@ class SampleItemListView extends StatelessWidget {
   const SampleItemListView({
     super.key,
     this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
+    required SettingsController controller,
   });
 
   static const routeName = '/';
@@ -39,40 +42,37 @@ class SampleItemListView extends StatelessWidget {
       // In contrast to the default ListView constructor, which requires
       // building all Widgets up front, the ListView.builder constructor lazily
       // builds Widgets as they’re scrolled into view.
-      body: Column(
-        children: [
-          SearchAnchor(
-            builder: (context, controller) {
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child:  SearchBar(
-                  hintText: 'Search',
-                  leading: const Icon(Icons.search),
-                  controller: controller,
-                  onTap: () => controller.openView(),
-                  onChanged: (value) => controller.openView(),
-                ),
+      body: Center(
+        child: SearchAnchor(
+          builder: (context, controller) {
+            return SanePadding(
+              child: SearchBar(
+                hintText: 'Search',
+                leading: const Icon(Icons.search),
+                controller: controller,
+                onTap: () => controller.openView(),
+                onChanged: (value) => controller.openView(),
+              ),
+            );
+          },
+          suggestionsBuilder: (context, controller) {
+            return List.generate(items.length, (index) {
+              return ListTile(
+                title: Text(items[index].id.toString()),
+                onTap: () {
+                  // Navigate to the details page. If the user leaves and
+                  // returns to the app after it has been killed while running
+                  // in the background, the navigation stack is restored.
+                  Navigator.restorablePushNamed(
+                    context,
+                    SampleItemDetailsView.routeName,
+                    arguments: items[index].id,
+                  );
+                },
               );
-            },
-            suggestionsBuilder: (context, controller) {
-              return List.generate(items.length, (index) {
-                return ListTile(
-                  title: Text(items[index].id.toString()),
-                  onTap: () {
-                    // Navigate to the details page. If the user leaves and
-                    // returns to the app after it has been killed while running
-                    // in the background, the navigation stack is restored.
-                    // Navigator.restorablePushNamed(
-                    //   context,
-                    //   SampleItemDetailsView.routeName,
-                    //   arguments: item.id,
-                    // );
-                  },
-                );
-              });
-            },
-          ),
-        ],
+            });
+          },
+        ),
       ),
     );
   }

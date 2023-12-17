@@ -60,4 +60,21 @@ class SettingsController with ChangeNotifier {
     // SettingService.
     await _settingsService.updateThemeMode(newThemeMode);
   }
+
+  Future<void> addFavorite(String id) async {
+    if (!_favoriteIds.contains(id)) {
+      _favoriteIds.add(id);
+      notifyListeners();
+    }
+
+    await _settingsService.setFavorites(_favoriteIds);
+  }
+
+  Future<void> removeFavorite(String id) async {
+    if (_favoriteIds.remove(id)) {
+      notifyListeners();
+    }
+
+    await _settingsService.setFavorites(_favoriteIds);
+  }
 }

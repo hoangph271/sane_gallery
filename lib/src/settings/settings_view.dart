@@ -69,8 +69,7 @@ class SettingsView extends StatelessWidget {
                 keyboardType: TextInputType.text,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            SanePadding(
               child: TextField(
                 controller: TextEditingController(
                     text: controller.searchLimit.toString()),
