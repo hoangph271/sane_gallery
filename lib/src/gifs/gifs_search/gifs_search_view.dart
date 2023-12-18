@@ -1,16 +1,19 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/shared/sane_padding.dart';
-import 'package:http/http.dart' as http;
 
 class GifsSearchView extends StatefulWidget {
   final SettingsController settingsController;
+  final List<GifObject> gifs;
+  final ValueChanged<String> handleSearch;
+  final TextEditingController searchController;
 
   const GifsSearchView({
     super.key,
     required this.settingsController,
+    required this.gifs,
+    required this.handleSearch,
+    required this.searchController,
   });
 
   @override
@@ -18,9 +21,6 @@ class GifsSearchView extends StatefulWidget {
 }
 
 class _GifsSearchViewState extends State<GifsSearchView> {
-  // TODO: Lift state up to GifsView
-  var gifs = <GifObject>[];
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -28,8 +28,9 @@ class _GifsSearchViewState extends State<GifsSearchView> {
         children: [
           SanePadding(
             child: TextField(
+              controller: widget.searchController,
               textInputAction: TextInputAction.search,
-              onSubmitted: _handleSearch,
+              onSubmitted: widget.handleSearch,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.search),
@@ -48,7 +49,7 @@ class _GifsSearchViewState extends State<GifsSearchView> {
               
                   return Expanded(
                     child: GridView.builder(
-                      itemCount: gifs.length,
+                      itemCount: widget.gifs.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: crossAxisCount > 0 ? crossAxisCount : 1,
                         crossAxisSpacing: 8,
@@ -56,7 +57,7 @@ class _GifsSearchViewState extends State<GifsSearchView> {
                         childAspectRatio: 4 / 3,
                       ),
                       itemBuilder: ((context, index) {
-                        final gif = gifs[index];
+                        final gif = widget.gifs[index];
 
                         return GifCard(
                             gif: gif,
@@ -71,29 +72,6 @@ class _GifsSearchViewState extends State<GifsSearchView> {
         ],
       ),
     );
-  }
-
-  Future<void> _handleSearch(String keyword) async {
-    if (keyword.isEmpty) return;
-
-    final apiRoot = widget.settingsController.apiRoot;
-    final apiKey = widget.settingsController.apiKey;
-
-    final url = Uri.parse(
-        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=15&offset=0&rating=g&lang=en');
-
-    final res = await http.get(url);
-
-    if (res.statusCode != 200) {
-      // TODO: Handle error
-    }
-
-    final gifs =
-        GifObjectList.fromJson(jsonDecode(res.body)['data']).gifObjects;
-
-    setState(() {
-      this.gifs = gifs;
-    });
   }
 }
 

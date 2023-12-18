@@ -65,7 +65,7 @@ class SaneGallery extends StatelessWidget {
                     );
                   case SampleItemListView.routeName:
                   default:
-                    return GifsView(settingController: settingsController);
+                    return GifsView(settingsController: settingsController);
                 }
               },
             );
