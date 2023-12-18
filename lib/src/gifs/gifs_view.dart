@@ -22,7 +22,7 @@ class _GifsViewState extends State<GifsView> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Gifs'),
+            title: const Text('GIFs'),
           ),
           body: TabBarView(children: [
             GifsSearchView(settingsController: widget.settingController),

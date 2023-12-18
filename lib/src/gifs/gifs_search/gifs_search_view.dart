@@ -18,6 +18,7 @@ class GifsSearchView extends StatefulWidget {
 }
 
 class _GifsSearchViewState extends State<GifsSearchView> {
+  // TODO: Lift state up to GifsView
   var gifs = <GifObject>[];
 
   @override
@@ -36,28 +37,36 @@ class _GifsSearchViewState extends State<GifsSearchView> {
               ),
             ),
           ),
-          LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              final crossAxisCount = constraints.maxWidth ~/ 300 > 6
-                  ? 6
-                  : constraints.maxWidth ~/ 300;
+          Expanded(
+            child: SanePadding(
+              paddingSize: PaddingSize.small,
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  final crossAxisCount = constraints.maxWidth ~/ 300 > 6
+                      ? 6
+                      : constraints.maxWidth ~/ 300;
+              
+                  return Expanded(
+                    child: GridView.builder(
+                      itemCount: gifs.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount > 0 ? crossAxisCount : 1,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 4 / 3,
+                      ),
+                      itemBuilder: ((context, index) {
+                        final gif = gifs[index];
 
-              return GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount > 0 ? crossAxisCount : 1,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                  ),
-                  itemBuilder: ((context, index) {
-                    final gif = gifs[index];
-
-                    return GifCard(
-                        gif: gif,
-                        settingsController: widget.settingsController);
-                  }),
-                  itemCount: gifs.length);
-            },
+                        return GifCard(
+                            gif: gif,
+                            settingsController: widget.settingsController);
+                      }),
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),
@@ -110,43 +119,58 @@ class _GifCardState extends State<GifCard> {
         widget.settingsController.favoriteIds.contains(widget.gif.id);
 
     return Card(
-        child: Column(
-      children: [
-        Stack(
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-                child: Image.network(widget.gif.images.original.url),
+        child: ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(widget.gif.images.original.url),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  Colors.grey.withOpacity(0.4),
+                  Colors.black.withOpacity(0.4),
+                ],
               ),
             ),
-            Positioned(
-              right: 8,
-              bottom: 8,
-              child: IconButton(
-                icon:
-                    Icon(isFavorited ? Icons.favorite : Icons.favorite_border),
-                onPressed: () {
-                  if (isFavorited) {
-                    widget.settingsController.removeFavorite(widget.gif.id);
-                  } else {
-                    widget.settingsController.addFavorite(widget.gif.id);
-                  }
-                },
+            child: SanePadding(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                      child: Text(
+                    widget.gif.title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  )),
+                  IconButton.filledTonal(
+                    icon: Icon(
+                        isFavorited ? Icons.favorite : Icons.favorite_border),
+                    onPressed: () {
+                      if (isFavorited) {
+                        widget.settingsController.removeFavorite(widget.gif.id);
+                      } else {
+                        widget.settingsController.addFavorite(widget.gif.id);
+                      }
+                    },
+                  ),
+                ],
               ),
-            )
-          ],
+            ),
+          ),
         ),
-        SanePadding(child: Text(widget.gif.title)),
-      ],
-    )
-        // leading: Image.network(gif.images.original.url),
-        // title: Text(gif.id),
-        // subtitle: Text(gif.url),
-        );
+      ),
+    ));
   }
 }
 
