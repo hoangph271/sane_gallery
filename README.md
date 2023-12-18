@@ -1,6 +1,11 @@
 # sane_gallery
 
-A new Flutter project.
+## `// TODO:`
+
+- [x] Fetch favorites
+- [x] Cache search results
+- [ ] Remove favorites from view when unfavorited
+
 
 ## Getting Started
 
