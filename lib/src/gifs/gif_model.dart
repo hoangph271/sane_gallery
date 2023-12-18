@@ -1,24 +1,33 @@
-class OriginalImage {
+class GiphyImage {
   final String url;
+  final int size;
 
-  const OriginalImage({
+  const GiphyImage({
     required this.url,
+    required this.size,
   });
 }
 
-class GifImage {
-  final OriginalImage original;
+class GifVariants {
+  final GiphyImage original;
+  final GiphyImage fixedHeight;
 
-  const GifImage({
+  const GifVariants({
     required this.original,
+    required this.fixedHeight,
   });
 
-  GifImage.fromJson(Map<String, dynamic> json)
-      : original = OriginalImage(url: json['original']['url']);
+  GifVariants.fromJson(Map<String, dynamic> json)
+      : original = GiphyImage(
+            url: json['original']['url'],
+            size: int.parse(json['original']['size'])),
+        fixedHeight = GiphyImage(
+            url: json['fixed_height']['url'],
+            size: int.parse(json['fixed_height']['size']));
 }
 
 class GifObject {
-  final GifImage images;
+  final GifVariants giphyVariants;
   final String id;
   final String url;
   final String title;
@@ -26,15 +35,20 @@ class GifObject {
   const GifObject({
     required this.id,
     required this.url,
-    required this.images,
+    required this.giphyVariants,
     required this.title,
   });
+
+  String get previewUrl =>
+      giphyVariants.fixedHeight.size < giphyVariants.original.size
+          ? giphyVariants.fixedHeight.url
+          : giphyVariants.original.url;
 
   GifObject.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         url = json['url'],
         title = json['title'],
-        images = GifImage.fromJson(json['images']);
+        giphyVariants = GifVariants.fromJson(json['images']);
 }
 
 class GifObjectList {

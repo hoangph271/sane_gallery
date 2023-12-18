@@ -68,7 +68,7 @@ class _GifCardState extends State<GifCard> {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(widget.gif.images.original.url),
+            image: NetworkImage(widget.gif.previewUrl),
             fit: BoxFit.cover,
           ),
         ),
