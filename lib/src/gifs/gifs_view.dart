@@ -18,12 +18,10 @@ class GifsView extends StatefulWidget {
 }
 
 class _GifsViewState extends State<GifsView> {
-  var searchedGifs = <GifObject>[];
   final _searchController = TextEditingController();
+  Future<List<GifObject>>? foundGifs;
 
-  Future<void> _handleSearch(String keyword) async {
-    if (keyword.isEmpty) return;
-
+  Future<List<GifObject>> _fetchGifs(String keyword) async {
     final apiRoot = widget.settingsController.apiRoot;
     final apiKey = widget.settingsController.apiKey;
 
@@ -39,44 +37,51 @@ class _GifsViewState extends State<GifsView> {
     final gifs =
         GifObjectList.fromJson(jsonDecode(res.body)['data']).gifObjects;
 
-    setState(() {
-      searchedGifs = gifs;
-    });
+    return gifs;
   }
 
   @override
   Widget build(BuildContext context) {
     final favoritesCount = widget.settingsController.favoriteIds.length;
 
-    return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('GIFs'),
-          ),
-          body: TabBarView(children: [
-            GifsSearchView(
-              searchController: _searchController,
-              handleSearch: _handleSearch,
-              settingsController: widget.settingsController,
-              gifs: searchedGifs,
-            ),
-            FavoritedGifsView(
-              settingsController: widget.settingsController,
-            ),
-          ]),
-          bottomNavigationBar: TabBar(
-            tabs: [
-              const Tab(
-                icon: Icon(Icons.search),
-                text: 'Search',
+    return SafeArea(
+      child: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            body: TabBarView(children: [
+              GifsSearchView(
+                searchController: _searchController,
+                handleSearch: _handleSearch,
+                settingsController: widget.settingsController,
+                foundGifs: foundGifs,
               ),
-              Tab(
-                icon: const Icon(Icons.favorite_border),
-                text: 'Favourites ($favoritesCount)',
+              FavoritedGifsView(
+                settingsController: widget.settingsController,
               ),
-            ],
-          ),
-        ));
+            ]),
+            bottomNavigationBar: TabBar(
+              tabs: [
+                const Tab(
+                  icon: Icon(Icons.search),
+                  text: 'Search',
+                ),
+                Tab(
+                  icon: const Icon(Icons.favorite_border),
+                  text: 'Favourites ($favoritesCount)',
+                ),
+              ],
+            ),
+          )),
+    );
+  }
+
+  void _handleSearch(keyword) {
+    if (keyword.isEmpty) {
+      return;
+    }
+
+    setState(() {
+      foundGifs = _fetchGifs(keyword);
+    });
   }
 }

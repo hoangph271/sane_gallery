@@ -6,16 +6,16 @@ import 'package:sane_gallery/src/shared/sane_padding.dart';
 
 class GifsSearchView extends StatelessWidget {
   final SettingsController settingsController;
-  final List<GifObject> gifs;
   final ValueChanged<String> handleSearch;
   final TextEditingController searchController;
+  final Future<List<GifObject>>? foundGifs;
 
   const GifsSearchView({
     super.key,
     required this.settingsController,
-    required this.gifs,
     required this.handleSearch,
-    required this.searchController,
+    required this.searchController, 
+    required this.foundGifs,
   });
 
   @override
@@ -35,13 +35,32 @@ class GifsSearchView extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
+          if (foundGifs != null)
+            Expanded(
             child: SanePadding(
               paddingSize: PaddingSize.small,
-              child:
-                  GifsGrid(gifs: gifs, settingsController: settingsController),
+                child: FutureBuilder<List<GifObject>>(
+                  future: foundGifs,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    if (snapshot.hasData) {
+                      return GifsGrid(
+                          gifs: snapshot.data!,
+                          settingsController: settingsController);
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                ),
+              ),
             ),
-          ),
         ],
       ),
     );
