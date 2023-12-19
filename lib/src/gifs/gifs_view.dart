@@ -4,6 +4,7 @@ import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_view.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
+import 'package:sane_gallery/src/widgets/sane_title.dart';
 import 'package:http/http.dart' as http;
 
 class GifsView extends StatefulWidget {
@@ -48,6 +49,9 @@ class _GifsViewState extends State<GifsView> {
       child: DefaultTabController(
           length: 2,
           child: Scaffold(
+            appBar: AppBar(
+              title: const SaneTitle(),
+            ),
             body: TabBarView(children: [
               GifsSearchView(
                 searchController: _searchController,
