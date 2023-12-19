@@ -18,17 +18,27 @@ class FavoritedGifsView extends StatefulWidget {
 }
 
 class _FavoritedGifsViewState extends State<FavoritedGifsView> {
-  late Future<List<GifObject>> _favoritedGifsFuture;
+  late Future<List<GifObject>>? _favoritedGifsFuture;
+
+  get _hasNoFavorites => widget.settingsController.favoriteIds.isEmpty;
 
   @override
   void initState() {
     super.initState();
 
-    _favoritedGifsFuture = _getFavoritedGifs();
+    if (!_hasNoFavorites) {
+      _favoritedGifsFuture = _getFavoritedGifs();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_hasNoFavorites) {
+      return const Center(
+        child: Text('You have no favorited gifs'),
+      );
+    }
+
     return FutureBuilder<List<GifObject>>(
       future: _favoritedGifsFuture,
       builder: (context, snapshot) {
