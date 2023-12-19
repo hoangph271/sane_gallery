@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_figs_view.dart';
+import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_view.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
