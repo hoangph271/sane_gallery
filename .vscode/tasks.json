@@ -6,11 +6,27 @@
       "command": "flutter",
       "args": [
         "build",
+        "apk",
+        "--release",
+        "--split-per-abi"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: build::apk",
+      "dependsOn": [
+        "flutter:clean"
+      ]
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
         "web"
       ],
       "group": "build",
       "problemMatcher": [],
-      "label": "flutter: flutter build web",
+      "label": "flutter: build::web",
       "dependsOn": [
         "flutter:clean"
       ]
@@ -23,7 +39,7 @@
       ],
       "group": "build",
       "problemMatcher": [],
-      "label": "flutter:clean",
+      "label": "flutter clean",
     }
   ]
 }
