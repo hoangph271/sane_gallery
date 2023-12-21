@@ -25,5 +25,11 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v2
         with:
-          name: app-release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: app-artifacts
+          path: |
+            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk.sha1
+            build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+            build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk.sha1
+            build/app/outputs/flutter-apk/app-x86_64-release.apk
+            build/app/outputs/flutter-apk/app-x86_64-release.apk.sha1
