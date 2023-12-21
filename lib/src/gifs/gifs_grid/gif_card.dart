@@ -30,6 +30,10 @@ class _GifCardState extends State<GifCard> {
       borderRadius: BorderRadius.circular(8),
       child: CachedNetworkImage(
         imageUrl: widget.gif.previewUrl,
+        placeholder: (context, url) => CachedNetworkImage(
+          imageUrl: widget.gif.thumbnailUrl,
+          fit: BoxFit.cover,
+        ),
         imageBuilder: (context, imageProvider) {
           return Container(
             decoration: BoxDecoration(

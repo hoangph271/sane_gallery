@@ -11,10 +11,12 @@ class GiphyImage {
 class GifVariants {
   final GiphyImage original;
   final GiphyImage fixedHeight;
+  final GiphyImage downsizedStill;
 
   const GifVariants({
     required this.original,
     required this.fixedHeight,
+    required this.downsizedStill,
   });
 
   GifVariants.fromJson(Map<String, dynamic> json)
@@ -23,7 +25,10 @@ class GifVariants {
             size: int.parse(json['original']['size'])),
         fixedHeight = GiphyImage(
             url: json['fixed_height']['url'],
-            size: int.parse(json['fixed_height']['size']));
+            size: int.parse(json['fixed_height']['size'])),
+        downsizedStill = GiphyImage(
+            url: json['downsized_still']['url'],
+            size: int.parse(json['downsized_still']['size']));
 }
 
 class GifObject {
@@ -43,6 +48,8 @@ class GifObject {
       giphyVariants.fixedHeight.size < giphyVariants.original.size
           ? giphyVariants.fixedHeight.url
           : giphyVariants.original.url;
+
+  String get thumbnailUrl => giphyVariants.downsizedStill.url;
 
   GifObject.fromJson(Map<String, dynamic> json)
       : id = json['id'],
