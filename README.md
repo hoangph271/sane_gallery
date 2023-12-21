@@ -6,6 +6,28 @@ Sane**Gallery** is the Flutter reimplementation of [gallereasy](https://github.c
 
 Check out the live version of Sane Gallery on the web: [SaneGallery Web](https://sane-gallery.netlify.app/)
 
+## Android Build
+
+If you prefer to use Sane Gallery on your Android device, you can download the APK files for the latest release:
+
+- [Download APK for ARM64-v8a](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.2-alpha/app-arm64-v8a-release.apk)
+- [Download APK for ARM-v7a](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.2-alpha/app-armeabi-v7a-release.apk)
+- [Download APK for x86_64](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.2-alpha/app-x86_64-release.apk)
+
+To install the APK on your Android device:
+
+1. Download the appropriate APK file from the provided link.
+2. Open the file on your Android device.
+3. Follow the on-screen instructions to install the app.
+
+Note: Make sure to enable "Install from unknown sources" in your device settings if you haven't already.
+
+Additionally, you can verify the integrity of the downloaded APK files by checking their SHA1 hash values:
+
+- [SHA1 for ARM64-v8a APK](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.2-alpha/app-arm64-v8a-release.apk.sha1)
+- [SHA1 for ARM-v7a APK](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.2-alpha/app-armeabi-v7a-release.apk.sha1)
+- [SHA1 for x86_64 APK](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.2-alpha/app-x86_64-release.apk.sha1)
+
 ## Getting Started
 To get started with Sane**Gallery**, follow these steps:
 
@@ -25,9 +47,9 @@ flutter run
 
 ## TODO List:
 
-- [x] Deploy the web app
-- [ ] Automate the Android build process
 - [ ] Remove favorites from view when unfavorited
+- [x] Deploy the web app
+- [x] Automate the Android build process
 
 ## License
 
