@@ -45,11 +45,9 @@ class _FavoritedGifsViewState extends State<FavoritedGifsView> {
         if (snapshot.hasData) {
           final favoritedGifs = snapshot.data!;
 
-          return Expanded(
-            child: GifsGrid(
-              gifs: favoritedGifs,
-              settingsController: widget.settingsController,
-            ),
+          return GifsGrid(
+            gifs: favoritedGifs,
+            settingsController: widget.settingsController,
           );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');

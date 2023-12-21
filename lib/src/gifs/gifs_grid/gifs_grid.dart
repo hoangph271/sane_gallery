@@ -20,21 +20,19 @@ class GifsGrid extends StatelessWidget {
         final crossAxisCount =
             constraints.maxWidth ~/ 300 > 6 ? 6 : constraints.maxWidth ~/ 300;
 
-        return Expanded(
-          child: GridView.builder(
-            itemCount: gifs.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount > 0 ? crossAxisCount : 1,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              childAspectRatio: 4 / 3,
-            ),
-            itemBuilder: ((context, index) {
-              final gif = gifs[index];
-
-              return GifCard(gif: gif, settingsController: settingsController);
-            }),
+        return GridView.builder(
+          itemCount: gifs.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount > 0 ? crossAxisCount : 1,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            childAspectRatio: 4 / 3,
           ),
+          itemBuilder: ((context, index) {
+            final gif = gifs[index];
+
+            return GifCard(gif: gif, settingsController: settingsController);
+          }),
         );
       },
     );
