@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
-import 'package:sane_gallery/src/gifs/gifs_grid/gifs_card.dart';
+import 'package:sane_gallery/src/gifs/gifs_grid/gif_card.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 
 class GifsGrid extends StatelessWidget {
