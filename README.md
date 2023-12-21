@@ -1,6 +1,6 @@
 # sane_gallery
 
-Sane**Gallery** is the new Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
+Sane**Gallery** is the Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
 
 ## Deployed Web Version
 
