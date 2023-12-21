@@ -2,6 +2,10 @@
 
 Sane**Gallery** is the new Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
 
+## Deployed Web Version
+
+Check out the live version of Sane Gallery on the web: [SaneGallery Web](https://sane-gallery.netlify.app/)
+
 ## Getting Started
 To get started with Sane**Gallery**, follow these steps:
 
@@ -21,7 +25,8 @@ flutter run
 
 ## TODO List:
 
-- [x] Cache favorite images
+- [x] Deploy the web app
+- [ ] Automate the Android build process
 - [ ] Remove favorites from view when unfavorited
 
 ## License
