@@ -1,35 +1,29 @@
 # sane_gallery
 
-## `// TODO:`
-
-- [x] Fetch favorites
-- [x] Cache search results
-- [ ] Remove favorites from view when unfavorited
-
+Sane**Gallery** is the new Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
 
 ## Getting Started
+To get started with Sane**Gallery**, follow these steps:
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
+```bash
+# Clone the repository:
+git clone https://github.com/hoangph271/sane_gallery.git
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Navigate to the project directory:
+cd sane_gallery
 
-## Assets
+# Install dependencies:
+flutter pub get
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
+# Run the app:
+flutter run
+```
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+## TODO List:
 
-## Localization
+- [x] Cache favorite images
+- [ ] Remove favorites from view when unfavorited
 
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
+## License
 
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+This project is licensed under the DBAD License - see the [LICENSE](LICENSE) file for details.

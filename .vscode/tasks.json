@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "web"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build web",
+      "dependsOn": [
+        "flutter:clean"
+      ]
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "clean"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter:clean",
+    }
+  ]
+}

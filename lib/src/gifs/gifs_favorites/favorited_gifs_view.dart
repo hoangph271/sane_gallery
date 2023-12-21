@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
-import 'package:sane_gallery/src/gifs/gifs_grid.dart';
+import 'package:sane_gallery/src/gifs/gifs_grid/gifs_grid.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:http/http.dart' as http;
 
@@ -45,11 +45,9 @@ class _FavoritedGifsViewState extends State<FavoritedGifsView> {
         if (snapshot.hasData) {
           final favoritedGifs = snapshot.data!;
 
-          return Expanded(
-            child: GifsGrid(
-              gifs: favoritedGifs,
-              settingsController: widget.settingsController,
-            ),
+          return GifsGrid(
+            gifs: favoritedGifs,
+            settingsController: widget.settingsController,
           );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
