@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
-import 'package:sane_gallery/src/gifs/gifs_grid.dart';
+import 'package:sane_gallery/src/gifs/gifs_grid/gifs_grid.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/shared/sane_padding.dart';
 
