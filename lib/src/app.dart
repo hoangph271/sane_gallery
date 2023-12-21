@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -25,6 +26,11 @@ class SaneGallery extends StatelessWidget {
       listenable: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
+          // FIXME: Work on this after this issue is resolved: https://github.com/aloisdeniel/flutter_device_preview/issues/226
+          // ignore: deprecated_member_use
+          useInheritedMediaQuery: true,
+          builder: DevicePreview.appBuilder,
+          locale: DevicePreview.locale(context),
           // * Providing a restorationScopeId allows the Navigator built by the
           // * MaterialApp to restore the navigation stack when a user leaves and
           // * returns to the app after it has been killed while running in the
