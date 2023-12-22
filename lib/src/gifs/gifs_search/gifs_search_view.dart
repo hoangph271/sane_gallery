@@ -48,8 +48,14 @@ class GifsSearchView extends StatelessWidget {
                   }
 
                   if (snapshot.hasData) {
+                    final gifs = snapshot.data ?? [];
+
+                    if (gifs.isEmpty) {
+                      return const Center(child: Text('No results found.'));
+                    }
+
                     return GifsGrid(
-                        gifs: snapshot.data!,
+                        gifs: gifs,
                         settingsController: settingsController);
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
