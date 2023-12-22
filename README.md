@@ -47,6 +47,7 @@ flutter run
 
 ## TODO List:
 
+- [ ] Infinite scroll & no more results banner
 - [ ] Remove favorites from view when unfavorited
 - [x] Deploy the web app
 - [x] Automate the Android build process
