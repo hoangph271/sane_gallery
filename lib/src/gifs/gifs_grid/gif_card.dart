@@ -50,8 +50,8 @@ class _GifCardState extends State<GifCard> {
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     colors: [
-                      Colors.grey.withOpacity(0.4),
-                      Colors.black.withOpacity(0.4),
+                      Theme.of(context).secondaryHeaderColor.withOpacity(0.6),
+                      Theme.of(context).primaryColor.withOpacity(0.6),
                     ],
                   ),
                 ),
