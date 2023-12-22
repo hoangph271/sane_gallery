@@ -18,6 +18,8 @@ class GifsView extends StatefulWidget {
   State<GifsView> createState() => _GifsViewState();
 }
 
+const _pageSize = 12;
+
 class _GifsViewState extends State<GifsView> {
   final _searchController = TextEditingController();
   Future<List<GifObject>>? foundGifs;
@@ -27,7 +29,7 @@ class _GifsViewState extends State<GifsView> {
     final apiKey = widget.settingsController.apiKey;
 
     final url = Uri.parse(
-        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=15&offset=0&rating=g&lang=en');
+        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$_pageSize&offset=0&rating=g&lang=en');
 
     final res = await http.get(url);
 
@@ -35,8 +37,8 @@ class _GifsViewState extends State<GifsView> {
       // TODO: Handle error
     }
 
-    final gifs =
-        GifObjectList.fromJson(jsonDecode(res.body)['data']).gifObjects;
+    final result = GifFetchResult.fromJson(jsonDecode(res.body));
+    final gifs = result.gifObjects;
 
     return gifs;
   }
