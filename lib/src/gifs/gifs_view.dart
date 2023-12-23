@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_view.dart';
@@ -18,11 +19,23 @@ class GifsView extends StatefulWidget {
   State<GifsView> createState() => _GifsViewState();
 }
 
-const _pageSize = 12;
-
 class _GifsViewState extends State<GifsView> {
+  static const _pageSize = 12;
+
+  final PagingController<int, GifObject> _pagingController =
+      PagingController(firstPageKey: 0);
   final _searchController = TextEditingController();
+
   Future<List<GifObject>>? foundGifs;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _pagingController.addPageRequestListener((pageKey) {
+      // _fetchPage(pageKey);
+    });
+  }
 
   Future<List<GifObject>> _fetchGifs(String keyword) async {
     final apiRoot = widget.settingsController.apiRoot;
