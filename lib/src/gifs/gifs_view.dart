@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_view.dart';
@@ -9,42 +10,58 @@ import 'package:http/http.dart' as http;
 
 class GifsView extends StatefulWidget {
   final SettingsController settingsController;
-
   const GifsView({super.key, required this.settingsController});
-
   static const routeName = '/gifs';
-
   @override
   State<GifsView> createState() => _GifsViewState();
 }
 
+const _pageSize = 12;
+
 class _GifsViewState extends State<GifsView> {
   final _searchController = TextEditingController();
-  Future<List<GifObject>>? foundGifs;
+  final _pagingController = PagingController<int, GifObject>(
+    firstPageKey: 0,
+  );
+  @override
+  void initState() {
+    super.initState();
+    _pagingController.addPageRequestListener((pageKey) {
+      if (_searchController.text.isEmpty) {
+        _pagingController.appendLastPage([]);
+        return;
+      }
+      _fetchGifs(_searchController.text, pageKey).then((result) {
+        final gifs = result.gifObjects;
+        final pagination = result.pagination;
+        final isLastPage =
+            pagination.totalCount == pagination.offset + pagination.count;
+        if (isLastPage) {
+          _pagingController.appendLastPage(gifs);
+        } else {
+          final nextPageKey = pageKey + gifs.length;
+          _pagingController.appendPage(gifs, nextPageKey);
+        }
+      });
+    });
+  }
 
-  Future<List<GifObject>> _fetchGifs(String keyword) async {
+  Future<GifFetchResult> _fetchGifs(String keyword, int pageKey) async {
     final apiRoot = widget.settingsController.apiRoot;
     final apiKey = widget.settingsController.apiKey;
-
+    final offset = pageKey * _pageSize;
     final url = Uri.parse(
-        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=15&offset=0&rating=g&lang=en');
-
+        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$_pageSize&offset=$offset&rating=g&lang=en');
     final res = await http.get(url);
-
     if (res.statusCode != 200) {
       // TODO: Handle error
     }
-
-    final gifs =
-        GifObjectList.fromJson(jsonDecode(res.body)['data']).gifObjects;
-
-    return gifs;
+    return GifFetchResult.fromJson(jsonDecode(res.body));
   }
 
   @override
   Widget build(BuildContext context) {
     final favoritesCount = widget.settingsController.favoriteIds.length;
-
     return SafeArea(
       child: DefaultTabController(
           length: 2,
@@ -54,10 +71,10 @@ class _GifsViewState extends State<GifsView> {
             ),
             body: TabBarView(children: [
               GifsSearchView(
+                pagingController: _pagingController,
                 searchController: _searchController,
                 handleSearch: _handleSearch,
                 settingsController: widget.settingsController,
-                foundGifs: foundGifs,
               ),
               FavoritedGifsView(
                 settingsController: widget.settingsController,
@@ -83,9 +100,6 @@ class _GifsViewState extends State<GifsView> {
     if (keyword.isEmpty) {
       return;
     }
-
-    setState(() {
-      foundGifs = _fetchGifs(keyword);
-    });
+    _pagingController.refresh();
   }
 }

@@ -72,7 +72,7 @@ class _FavoritedGifsViewState extends State<FavoritedGifsView> {
     }
 
     final gifs =
-        GifObjectList.fromJson(jsonDecode(res.body)['data']).gifObjects;
+        GifFetchResult.fromJson(jsonDecode(res.body)['data']).gifObjects;
 
     return gifs;
   }
