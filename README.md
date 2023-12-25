@@ -47,7 +47,9 @@ flutter run
 
 ## TODO List:
 
-- [ ] Infinite scroll & no more results banner
+- [x] Infinite scroll
+- [ ] no more results banner
+- [ ] [Failed to load favorites](https://github.com/hoangph271/sane_gallery/issues/5)
 - [ ] Remove favorites from view when unfavorited
 - [x] Deploy the web app
 - [x] Automate the Android build process
