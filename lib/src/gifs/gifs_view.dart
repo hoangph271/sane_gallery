@@ -10,11 +10,8 @@ import 'package:http/http.dart' as http;
 
 class GifsView extends StatefulWidget {
   final SettingsController settingsController;
-
   const GifsView({super.key, required this.settingsController});
-
   static const routeName = '/gifs';
-
   @override
   State<GifsView> createState() => _GifsViewState();
 }
@@ -26,24 +23,19 @@ class _GifsViewState extends State<GifsView> {
   final _pagingController = PagingController<int, GifObject>(
     firstPageKey: 0,
   );
-
   @override
   void initState() {
     super.initState();
-
     _pagingController.addPageRequestListener((pageKey) {
       if (_searchController.text.isEmpty) {
         _pagingController.appendLastPage([]);
         return;
       }
-
-      _fetchGifs(_searchController.text).then((result) {
+      _fetchGifs(_searchController.text, pageKey).then((result) {
         final gifs = result.gifObjects;
         final pagination = result.pagination;
-
         final isLastPage =
             pagination.totalCount == pagination.offset + pagination.count;
-
         if (isLastPage) {
           _pagingController.appendLastPage(gifs);
         } else {
@@ -54,26 +46,22 @@ class _GifsViewState extends State<GifsView> {
     });
   }
 
-  Future<GifFetchResult> _fetchGifs(String keyword) async {
+  Future<GifFetchResult> _fetchGifs(String keyword, int pageKey) async {
     final apiRoot = widget.settingsController.apiRoot;
     final apiKey = widget.settingsController.apiKey;
-
+    final offset = pageKey * _pageSize;
     final url = Uri.parse(
-        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$_pageSize&offset=0&rating=g&lang=en');
-
+        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$_pageSize&offset=$offset&rating=g&lang=en');
     final res = await http.get(url);
-
     if (res.statusCode != 200) {
       // TODO: Handle error
     }
-
     return GifFetchResult.fromJson(jsonDecode(res.body));
   }
 
   @override
   Widget build(BuildContext context) {
     final favoritesCount = widget.settingsController.favoriteIds.length;
-
     return SafeArea(
       child: DefaultTabController(
           length: 2,
@@ -112,7 +100,6 @@ class _GifsViewState extends State<GifsView> {
     if (keyword.isEmpty) {
       return;
     }
-
     _pagingController.refresh();
   }
 }
