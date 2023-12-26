@@ -50,12 +50,12 @@ flutter run
 ## TODO List:
 
 - [ ] no more results banner
-- [ ] Remove favorites from view when unfavorited
 - [x] splash screen
 - [x] [Failed to load favorites](https://github.com/hoangph271/sane_gallery/issues/5)
 - [x] Infinite scroll
 - [x] Deploy the web app
 - [x] Automate the Android build process
+- [ ] ~~Remove favorites from view when unfavorited~~
 
 ## License
 
