@@ -1,3 +1,5 @@
+![sane_gallery logo](android/app/src/main/res/drawable-mdpi/android12splash.png)
+
 # sane_gallery
 
 Sane**Gallery** is the Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
@@ -49,6 +51,7 @@ flutter run
 
 - [ ] no more results banner
 - [ ] Remove favorites from view when unfavorited
+- [x] splash screen
 - [x] [Failed to load favorites](https://github.com/hoangph271/sane_gallery/issues/5)
 - [x] Infinite scroll
 - [x] Deploy the web app
