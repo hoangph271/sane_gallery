@@ -5,11 +5,12 @@ import 'package:sane_gallery/src/gifs/gifs_grid/gif_card.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/shared/sane_padding.dart';
 
-class GifsSearchView extends StatelessWidget {
+class GifsSearchView extends StatefulWidget {
   final SettingsController settingsController;
   final PagingController<int, GifObject> pagingController;
   final ValueChanged<String> handleSearch;
   final TextEditingController searchController;
+
   const GifsSearchView({
     super.key,
     required this.settingsController,
@@ -17,15 +18,34 @@ class GifsSearchView extends StatelessWidget {
     required this.handleSearch,
     required this.searchController,
   });
+
+  @override
+  State<GifsSearchView> createState() => _GifsSearchViewState();
+}
+
+class _GifsSearchViewState extends State<GifsSearchView> {
+  int _itemsCount = 0;
+
+  @override
+  void initState() {
+    widget.pagingController.addListener(() {
+      setState(() {
+        _itemsCount = widget.pagingController.itemList?.length ?? 0;
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SanePadding(
           child: TextField(
-            controller: searchController,
+            controller: widget.searchController,
             textInputAction: TextInputAction.search,
-            onSubmitted: handleSearch,
+            onSubmitted: widget.handleSearch,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.search),
@@ -33,10 +53,9 @@ class GifsSearchView extends StatelessWidget {
             ),
           ),
         ),
-        if (pagingController.itemList?.isNotEmpty ?? false)
+        if (_itemsCount > 0)
           Center(
-              child:
-                  Text('Found ${pagingController.itemList?.length} results.}')),
+              child: Text('Found $_itemsCount results.')),
         Expanded(
           child: SanePadding(
             paddingSize: PaddingSize.small,
@@ -46,7 +65,7 @@ class GifsSearchView extends StatelessWidget {
                     ? 6
                     : constraints.maxWidth ~/ 300;
                 return PagedGridView<int, GifObject>(
-                  pagingController: pagingController,
+                  pagingController: widget.pagingController,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount > 0 ? crossAxisCount : 1,
                     crossAxisSpacing: 8,
@@ -55,7 +74,7 @@ class GifsSearchView extends StatelessWidget {
                   ),
                   builderDelegate: PagedChildBuilderDelegate<GifObject>(
                     itemBuilder: (context, gif, index) => GifCard(
-                      settingsController: settingsController,
+                      settingsController: widget.settingsController,
                       gif: gif,
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_grid/gifs_grid.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:http/http.dart' as http;
+import 'package:sane_gallery/src/shared/sane_padding.dart';
 
 class FavoritedGifsView extends StatefulWidget {
   final SettingsController settingsController;
@@ -31,33 +32,6 @@ class _FavoritedGifsViewState extends State<FavoritedGifsView> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_hasNoFavorites) {
-      return const Center(
-        child: Text('You have no favorited gifs'),
-      );
-    }
-
-    return FutureBuilder<List<GifObject>>(
-      future: _favoritedGifsFuture,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final favoritedGifs = snapshot.data!;
-
-          return GifsGrid(
-            gifs: favoritedGifs,
-            settingsController: widget.settingsController,
-          );
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-
-        return const Center(child: CircularProgressIndicator());
-      },
-    );
-  }
-
   Future<List<GifObject>> _getFavoritedGifs() async {
     final apiRoot = widget.settingsController.apiRoot;
     final apiKey = widget.settingsController.apiKey;
@@ -71,9 +45,37 @@ class _FavoritedGifsViewState extends State<FavoritedGifsView> {
       // TODO: Handle error
     }
 
-    final gifs =
-        GifFetchResult.fromJson(jsonDecode(res.body)['data']).gifObjects;
+    final gifs = GifFetchResult.fromJson(jsonDecode(res.body)).gifObjects;
 
     return gifs;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_hasNoFavorites) {
+      return const Center(
+        child: Text('You have no favorited gifs'),
+      );
+    }
+
+    return SanePadding(
+      child: FutureBuilder<List<GifObject>>(
+        future: _favoritedGifsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final favoritedGifs = snapshot.data!;
+
+            return GifsGrid(
+              gifs: favoritedGifs,
+              settingsController: widget.settingsController,
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
   }
 }
