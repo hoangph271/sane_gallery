@@ -21,13 +21,13 @@ class SettingsService {
   Future<List<String>> favoriteIds() async {
     final prefs = await getSharedPreferences();
 
-    List<String> ids = prefs.getStringList("@favorites") ?? [];
+    List<String> ids = prefs.getStringList('@favorites') ?? [];
 
     return ids;
   }
 
   Future<void> setFavorites(List<String> ids) async {
-    (await getSharedPreferences()).setStringList("@favorites", ids);
+    (await getSharedPreferences()).setStringList('@favorites', ids);
   }
 
   /// Persists the user's preferred ThemeMode to local or remote storage.
