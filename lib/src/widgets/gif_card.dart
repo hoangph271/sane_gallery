@@ -4,7 +4,9 @@ import 'package:flip_card/flip_card.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
-import 'package:sane_gallery/src/widgets/sane_padding.dart';
+import 'package:sane_gallery/src/widgets/image_card/card_caption.dart';
+import 'package:sane_gallery/src/widgets/image_card/image_card.dart';
+import 'package:sane_gallery/src/widgets/instax_card.dart';
 
 class GifCard extends StatefulWidget {
   final SettingsController settingsController;
@@ -47,148 +49,9 @@ class _GifCardState extends State<GifCard> {
                 isFavorited: isFavorited,
               ),
             )),
-            back: Align(
-              alignment: Alignment.center,
-              child: RotatedBox(
-                // TODO: calculate quarterTurns based on image orientation
-                quarterTurns: 1,
-                child: AspectRatio(
-                  aspectRatio: 2.1 / 3.4,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: AspectRatio(
-                          aspectRatio: 1.8 / 2.4,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          // child: ImageCard(
-                          //   widget: widget,
-                          //   isFavorited: isFavorited,
-                          //   imageProvider: imageProvider,
-                          // ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+            back: InstaxCard(
+              imageProvider: imageProvider,
             ));
-      },
-    );
-  }
-}
-
-class ImageCard extends StatelessWidget {
-  const ImageCard({
-    super.key,
-    required this.widget,
-    required this.isFavorited,
-    required this.imageProvider,
-    this.cardCaption,
-  });
-
-  final GifCard widget;
-  final bool isFavorited;
-  final ImageProvider<Object> imageProvider;
-  final Widget? cardCaption;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: cardCaption,
-      ),
-    );
-  }
-}
-
-class CardCaption extends StatelessWidget {
-  const CardCaption({
-    super.key,
-    required this.widget,
-    required this.isFavorited,
-  });
-
-  final GifCard widget;
-  final bool isFavorited;
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Theme.of(context).secondaryHeaderColor.withOpacity(0.6),
-              Theme.of(context).primaryColor.withOpacity(0.6),
-            ],
-          ),
-        ),
-        child: SanePadding(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                  child: Text(
-                widget.gif.title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              )),
-              FavoriteButton(
-                isFavorited: isFavorited,
-                widget: widget,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class FavoriteButton extends StatelessWidget {
-  const FavoriteButton({
-    super.key,
-    required this.isFavorited,
-    required this.widget,
-  });
-
-  final bool isFavorited;
-  final GifCard widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton.filledTonal(
-      icon: Icon(isFavorited ? Icons.favorite : Icons.favorite_border),
-      onPressed: () {
-        if (isFavorited) {
-          widget.gifsController.removeFavorite(widget.gif.id);
-        } else {
-          widget.gifsController.addFavorite(widget.gif.id);
-        }
       },
     );
   }
