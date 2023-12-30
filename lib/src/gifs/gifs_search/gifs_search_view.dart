@@ -11,16 +11,18 @@ class GifsSearchView extends StatefulWidget {
   final GifsController gifsController;
   final PagingController<int, GifObject> pagingController;
 
-  final ValueChanged<String> handleSearch;
+  final ValueChanged<String> onSearch;
   final TextEditingController searchController;
+  final int totalItemsCount;
 
   const GifsSearchView({
     super.key,
     required this.settingsController,
     required this.pagingController,
-    required this.handleSearch,
+    required this.onSearch,
     required this.searchController,
-    required this.gifsController,
+    required this.gifsController, 
+    required this.totalItemsCount,
   });
 
   @override
@@ -38,6 +40,8 @@ class _GifsSearchViewState extends State<GifsSearchView> {
       });
     });
 
+    _itemsCount = widget.pagingController.itemList?.length ?? 0;
+
     super.initState();
   }
 
@@ -49,7 +53,7 @@ class _GifsSearchViewState extends State<GifsSearchView> {
           child: TextField(
             controller: widget.searchController,
             textInputAction: TextInputAction.search,
-            onSubmitted: widget.handleSearch,
+            onSubmitted: widget.onSearch,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.search),
@@ -57,9 +61,10 @@ class _GifsSearchViewState extends State<GifsSearchView> {
             ),
           ),
         ),
-        if (_itemsCount > 0)
+        if ((widget.pagingController.itemList?.length ?? 0) > 0)
           Center(
-              child: Text('Found $_itemsCount results.')),
+              child: Text(
+                  'Loaded $_itemsCount/${widget.totalItemsCount} results.')),
         Expanded(
           child: SanePadding(
             paddingSize: PaddingSize.small,

@@ -30,6 +30,7 @@ class _GifsViewState extends State<GifsView> {
   final _pagingController = PagingController<int, GifObject>(
     firstPageKey: 0,
   );
+  var _totalItemsCount = 0;
 
   @override
   void initState() {
@@ -46,6 +47,11 @@ class _GifsViewState extends State<GifsView> {
         final pagination = result.pagination;
         final isLastPage =
             pagination.totalCount == pagination.offset + pagination.count;
+
+        setState(() {
+          _totalItemsCount = pagination.totalCount;
+        });
+
         if (isLastPage) {
           _pagingController.appendLastPage(gifs);
         } else {
@@ -88,9 +94,10 @@ class _GifsViewState extends State<GifsView> {
               GifsSearchView(
                 pagingController: _pagingController,
                 searchController: _searchController,
-                handleSearch: _handleSearch,
+                onSearch: _handleSearch,
                 settingsController: widget.settingsController,
                 gifsController: widget.gifsController,
+                totalItemsCount: _totalItemsCount,
               ),
               FavoritedGifsView(
                 settingsController: widget.settingsController,
