@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';
+import 'package:sane_gallery/src/widgets/toggle_theme_buttons.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView(
@@ -19,17 +20,7 @@ class SettingsView extends StatelessWidget {
         child: Column(
           children: [
             SanePadding(
-              child: ToggleButtons(
-                onPressed: _handleToggleTheme,
-                isSelected: [
-                  settingsController.themeMode == ThemeMode.light,
-                  settingsController.themeMode == ThemeMode.dark,
-                ],
-                children: const [
-                  Icon(Icons.light_mode),
-                  Icon(Icons.dark_mode),
-                ],
-              ),
+              child: ToggleThemeButtons(settingsController: settingsController),
             ),
             SanePadding(
               child: TextField(
@@ -80,21 +71,5 @@ class SettingsView extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _handleToggleTheme(index) {
-    if (index == 0) {
-      settingsController.updateThemeMode(
-        settingsController.themeMode == ThemeMode.light
-            ? ThemeMode.system
-            : ThemeMode.light,
-      );
-    } else if (index == 1) {
-      settingsController.updateThemeMode(
-        settingsController.themeMode == ThemeMode.dark
-            ? ThemeMode.system
-            : ThemeMode.dark,
-      );
-    }
   }
 }
