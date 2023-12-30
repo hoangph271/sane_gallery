@@ -56,15 +56,24 @@ class SettingsView extends StatelessWidget {
               ),
             ),
             SanePadding(
-              child: Slider(
-                min: 8,
-                max: 24,
-                divisions: 4,
-                label: settingsController.pageSize.toString(),
-                onChanged: (value) {
-                  settingsController.updatePageSize(value.toInt());
-                },
-                value: settingsController.pageSize.toDouble(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Page size: ${settingsController.pageSize}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  Slider(
+                    min: 8,
+                    max: 24,
+                    divisions: 4,
+                    label: settingsController.pageSize.toString(),
+                    onChanged: (value) {
+                      settingsController.updatePageSize(value.toInt());
+                    },
+                    value: settingsController.pageSize.toDouble(),
+                  ),
+                ],
               ),
             ),
           ],

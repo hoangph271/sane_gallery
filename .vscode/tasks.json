@@ -35,6 +35,20 @@
       "type": "flutter",
       "command": "flutter",
       "args": [
+        "build",
+        "ios"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: build::ios",
+      "dependsOn": [
+        "flutter:clean"
+      ]
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
         "clean"
       ],
       "group": "build",
