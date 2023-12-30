@@ -35,6 +35,7 @@ class _GifsViewState extends State<GifsView> {
   @override
   void initState() {
     super.initState();
+
     _pagingController.addPageRequestListener((pageKey) {
       if (_searchController.text.isEmpty) {
         _pagingController.appendLastPage([]);
