@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';
@@ -7,28 +6,17 @@ import 'package:sane_gallery/src/widgets/sane_padding.dart';
 class SettingsView extends StatelessWidget {
   const SettingsView(
       {super.key,
-      required this.settingsController,
-      required this.gifsController});
-
-  static const routeName = '/settings';
+    required this.settingsController,
+  });
 
   final SettingsController settingsController;
-  final GifsController gifsController;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Center(
+    return Center(
         child: Column(
           children: [
-            SanePadding(
-                child: Text(
-              'Favorite count: ${gifsController.favoriteIds.length}',
-            )),
-            SanePadding(
+          SanePadding(
               child: DropdownButton<ThemeMode>(
                 value: settingsController.themeMode,
                 onChanged: settingsController.updateThemeMode,
@@ -84,8 +72,7 @@ class SettingsView extends StatelessWidget {
                     signed: false, decimal: false),
               ),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }

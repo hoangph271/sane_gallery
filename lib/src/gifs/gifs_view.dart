@@ -6,6 +6,7 @@ import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_view.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
+import 'package:sane_gallery/src/settings/settings_view.dart';
 import 'package:sane_gallery/src/widgets/sane_title.dart';
 import 'package:http/http.dart' as http;
 
@@ -75,7 +76,7 @@ class _GifsViewState extends State<GifsView> {
 
     return SafeArea(
       child: DefaultTabController(
-          length: 2,
+          length: 3,
           child: Scaffold(
             appBar: AppBar(
               title: const SaneTitle(),
@@ -92,16 +93,21 @@ class _GifsViewState extends State<GifsView> {
                 settingsController: widget.settingsController,
                 gifsController: widget.gifsController,
               ),
+              SettingsView(settingsController: widget.settingsController),
             ]),
             bottomNavigationBar: TabBar(
               tabs: [
                 const Tab(
-                  icon: Icon(Icons.search),
+                  icon: Icon(Icons.image_search),
                   text: 'Search',
                 ),
                 Tab(
                   icon: const Icon(Icons.favorite_border),
                   text: 'Favourites ($favoritesCount)',
+                ),
+                const Tab(
+                  icon: Icon(Icons.settings_outlined),
+                  text: 'Settings',
                 ),
               ],
             ),
