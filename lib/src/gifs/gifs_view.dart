@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_view.dart';
@@ -10,8 +11,15 @@ import 'package:http/http.dart' as http;
 
 class GifsView extends StatefulWidget {
   final SettingsController settingsController;
-  const GifsView({super.key, required this.settingsController});
+  final GifsController gifsController;
+
+  const GifsView(
+      {super.key,
+      required this.settingsController,
+      required this.gifsController});
+
   static const routeName = '/gifs';
+
   @override
   State<GifsView> createState() => _GifsViewState();
 }
@@ -23,6 +31,7 @@ class _GifsViewState extends State<GifsView> {
   final _pagingController = PagingController<int, GifObject>(
     firstPageKey: 0,
   );
+
   @override
   void initState() {
     super.initState();
@@ -61,7 +70,8 @@ class _GifsViewState extends State<GifsView> {
 
   @override
   Widget build(BuildContext context) {
-    final favoritesCount = widget.settingsController.favoriteIds.length;
+    final favoritesCount = widget.gifsController.favoriteIds.length;
+
     return SafeArea(
       child: DefaultTabController(
           length: 2,
@@ -75,9 +85,11 @@ class _GifsViewState extends State<GifsView> {
                 searchController: _searchController,
                 handleSearch: _handleSearch,
                 settingsController: widget.settingsController,
+                gifsController: widget.gifsController,
               ),
               FavoritedGifsView(
                 settingsController: widget.settingsController,
+                gifsController: widget.gifsController,
               ),
             ]),
             bottomNavigationBar: TabBar(

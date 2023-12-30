@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'src/app.dart';
+import 'src/gifs/gifs_controller.dart';
+import 'src/gifs/gifs_service.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
+import 'src/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,8 +15,15 @@ void main() async {
 
 Future<SaneGallery> initApp() async {
   final settingsController = SettingsController(SettingsService());
+  final gifsController = GifsController(GifsService());
 
-  await settingsController.loadSettings();
+  await Future.wait([
+    settingsController.loadSettings(),
+    gifsController.loadSettings(),
+  ]);
 
-  return SaneGallery(settingsController: settingsController);
+  return SaneGallery(
+    settingsController: settingsController,
+    gifsController: gifsController,
+  );
 }

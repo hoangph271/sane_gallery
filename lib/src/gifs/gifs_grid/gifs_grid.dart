@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
+import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/gifs/gifs_grid/gif_card.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 
@@ -8,10 +9,12 @@ class GifsGrid extends StatelessWidget {
     super.key,
     required this.gifs,
     required this.settingsController,
+    required this.gifsController,
   });
 
   final List<GifObject> gifs;
   final SettingsController settingsController;
+  final GifsController gifsController;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,11 @@ class GifsGrid extends StatelessWidget {
           itemBuilder: ((context, index) {
             final gif = gifs[index];
 
-            return GifCard(gif: gif, settingsController: settingsController);
+            return GifCard(
+              gif: gif,
+              settingsController: settingsController,
+              gifsController: gifsController,
+            );
           }),
         );
       },
