@@ -69,7 +69,7 @@ class SettingsView extends StatelessWidget {
                 divisions: 4,
                 label: settingsController.pageSize.toString(),
                 onChanged: (value) {
-                  settingsController.updateSearchLimitRange(value.toInt());
+                  settingsController.updatePageSize(value.toInt());
                 },
                 value: settingsController.pageSize.toDouble(),
               ),

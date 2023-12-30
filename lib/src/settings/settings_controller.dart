@@ -48,13 +48,13 @@ class SettingsController with ChangeNotifier {
     await _settingsService.updateThemeMode(newThemeMode);
   }
 
-  Future<void> updateSearchLimitRange(int limit) async {
-    if (_pageSize == limit) return;
+  Future<void> updatePageSize(int pageSize) async {
+    if (_pageSize == pageSize) return;
 
-    _pageSize = limit;
+    _pageSize = pageSize;
 
     notifyListeners();
 
-    await _settingsService.updateSearchLimit(limit);
+    await _settingsService.updatePageSize(pageSize);
   }
 }

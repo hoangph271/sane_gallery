@@ -22,7 +22,8 @@ class SettingsService {
     // TODO: Use the shared_preferences package to persist settings locally
   }
 
-  Future<void> updateSearchLimit(int limit) async {
-    (await getSharedPreferences()).setInt(pageSizeSharedPreferencesKey, limit);
+  Future<void> updatePageSize(int pageSize) async {
+    (await getSharedPreferences())
+        .setInt(pageSizeSharedPreferencesKey, pageSize);
   }
 }
