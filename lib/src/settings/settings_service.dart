@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// A service that stores and retrieves user settings.
 ///
@@ -13,22 +12,6 @@ class SettingsService {
   Future<String> apiRoot() async => 'https://api.giphy.com/v1';
   Future<String> apiKey() async => 'ao3o2pNEYof5LZn2xixB7e1pVm7k1Xu4';
   Future<int> searchLimit() async => 8;
-
-  Future<SharedPreferences> getSharedPreferences() async {
-    return await SharedPreferences.getInstance();
-  }
-
-  Future<List<String>> favoriteIds() async {
-    final prefs = await getSharedPreferences();
-
-    List<String> ids = prefs.getStringList('@favorites') ?? [];
-
-    return ids;
-  }
-
-  Future<void> setFavorites(List<String> ids) async {
-    (await getSharedPreferences()).setStringList('@favorites', ids);
-  }
 
   /// Persists the user's preferred ThemeMode to local or remote storage.
   Future<void> updateThemeMode(ThemeMode theme) async {

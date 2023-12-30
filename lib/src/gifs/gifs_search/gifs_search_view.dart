@@ -4,7 +4,7 @@ import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/gifs/gifs_grid/gif_card.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
-import 'package:sane_gallery/src/shared/sane_padding.dart';
+import 'package:sane_gallery/src/widgets/sane_padding.dart';
 
 class GifsSearchView extends StatefulWidget {
   final SettingsController settingsController;

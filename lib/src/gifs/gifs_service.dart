@@ -1,19 +1,16 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sane_gallery/src/shared/shared_preferences.dart';
 
 class GifsService {
-  Future<SharedPreferences> getSharedPreferences() async {
-    return await SharedPreferences.getInstance();
-  }
-
   Future<List<String>> favoriteIds() async {
     final prefs = await getSharedPreferences();
 
-    List<String> ids = prefs.getStringList('@favorites') ?? [];
+    List<String> ids = prefs.getStringList(favoritesSharedPreferencesKey) ?? [];
 
     return ids;
   }
 
   Future<void> setFavorites(List<String> ids) async {
-    (await getSharedPreferences()).setStringList('@favorites', ids);
+    (await getSharedPreferences())
+        .setStringList(favoritesSharedPreferencesKey, ids);
   }
 }

@@ -4,8 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/gifs/gifs_view.dart';
-// import 'sample_feature/sample_item_details_view.dart';
-// import 'sample_feature/sample_item_list_view.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/settings/settings_view.dart';
 

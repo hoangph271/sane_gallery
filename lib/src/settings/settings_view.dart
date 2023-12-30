@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 
 import 'package:sane_gallery/src/settings/settings_controller.dart';
-import 'package:sane_gallery/src/shared/sane_padding.dart';
+import 'package:sane_gallery/src/widgets/sane_padding.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView(
