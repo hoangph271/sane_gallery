@@ -9,14 +9,14 @@ import 'package:sane_gallery/src/settings/settings_view.dart';
 
 /// The Widget that configures your application.
 class SaneGallery extends StatelessWidget {
+  final SettingsController settingsController;
+  final GifsController gifsController;
+
   const SaneGallery({
     super.key,
     required this.settingsController,
     required this.gifsController,
   });
-
-  final SettingsController settingsController;
-  final GifsController gifsController;
 
   @override
   Widget build(BuildContext context) {
