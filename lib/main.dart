@@ -18,8 +18,8 @@ Future<SaneGallery> initApp() async {
   final gifsController = GifsController(GifsService());
 
   await Future.wait([
-    settingsController.loadSettings(),
-    gifsController.loadSettings(),
+    settingsController.init(),
+    gifsController.init(),
   ]);
 
   return SaneGallery(

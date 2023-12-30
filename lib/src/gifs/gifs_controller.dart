@@ -10,7 +10,7 @@ class GifsController with ChangeNotifier {
 
   List<String> get favoriteIds => _favoriteIds;
 
-  Future<void> loadSettings() async {
+  Future<void> init() async {
     _favoriteIds = await _gifsService.favoriteIds();
 
     notifyListeners();

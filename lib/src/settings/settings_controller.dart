@@ -31,7 +31,7 @@ class SettingsController with ChangeNotifier {
   /// Load the user's settings from the SettingsService. It may load from a
   /// local database or the internet. The controller only knows it can load the
   /// settings from the service.
-  Future<void> loadSettings() async {
+  Future<void> init() async {
     _themeMode = await _settingsService.themeMode();
     _apiRoot = await _settingsService.apiRoot();
     _apiKey = await _settingsService.apiKey();
