@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/shared/shared_preferences.dart';
 
 const defaultPageSize = 8;
-const String pageSizeSharedPreferencesKey = '@settings-page-size';
+
+class SettingsSharedPreferencesKey {
+  static const pageSize = '@settings-page-size';
+  static const themeMode = '@settings-theme-mode';
+}
 
 class SettingsService {
   /// Loads the User's preferred ThemeMode from local or remote storage.
@@ -13,17 +17,21 @@ class SettingsService {
 
   Future<int> pageSize() async {
     return (await getSharedPreferences())
-            .getInt(pageSizeSharedPreferencesKey) ??
+            .getInt(SettingsSharedPreferencesKey.pageSize) ??
         defaultPageSize;
   }
 
   /// Persists the user's preferred ThemeMode to local or remote storage.
-  Future<void> updateThemeMode(ThemeMode theme) async {
-    // TODO: Use the shared_preferences package to persist settings locally
+  Future<ThemeMode> updateThemeMode(ThemeMode theme) async {
+    var themeModeIndex = (await getSharedPreferences())
+            .getInt(SettingsSharedPreferencesKey.themeMode) ??
+        ThemeMode.system.index;
+
+    return ThemeMode.values[themeModeIndex];
   }
 
   Future<void> updatePageSize(int pageSize) async {
     (await getSharedPreferences())
-        .setInt(pageSizeSharedPreferencesKey, pageSize);
+        .setInt(SettingsSharedPreferencesKey.pageSize, pageSize);
   }
 }
