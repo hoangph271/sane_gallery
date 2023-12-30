@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
-import 'package:sane_gallery/src/gifs/gifs_grid/gif_card.dart';
+import 'package:sane_gallery/src/widgets/gif_card.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';
 
