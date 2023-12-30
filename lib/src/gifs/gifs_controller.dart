@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/gifs/gifs_service.dart';
 
 class GifsController with ChangeNotifier {
-  GifsController(this._gifsService);
-
   final GifsService _gifsService;
+
+  GifsController(this._gifsService);
 
   late List<String> _favoriteIds;
 

@@ -20,25 +20,18 @@ class SettingsController with ChangeNotifier {
   late String _apiRoot;
   late String _apiKey;
   late int _searchLimit;
-  // late List<String> _favoriteIds;
 
   ThemeMode get themeMode => _themeMode;
   String get apiRoot => _apiRoot;
   String get apiKey => _apiKey;
   int get searchLimit => _searchLimit;
-  // List<String> get favoriteIds => _favoriteIds;
 
-  /// Load the user's settings from the SettingsService. It may load from a
-  /// local database or the internet. The controller only knows it can load the
-  /// settings from the service.
   Future<void> init() async {
     _themeMode = await _settingsService.themeMode();
     _apiRoot = await _settingsService.apiRoot();
     _apiKey = await _settingsService.apiKey();
     _searchLimit = await _settingsService.searchLimit();
-    // _favoriteIds = await _settingsService.favoriteIds();
 
-    // Important! Inform listeners a change has occurred.
     notifyListeners();
   }
 
@@ -59,21 +52,4 @@ class SettingsController with ChangeNotifier {
     // SettingService.
     await _settingsService.updateThemeMode(newThemeMode);
   }
-
-  // Future<void> addFavorite(String id) async {
-  //   if (!_favoriteIds.contains(id)) {
-  //     _favoriteIds.add(id);
-  //     notifyListeners();
-  //   }
-
-  //   await _settingsService.setFavorites(_favoriteIds);
-  // }
-
-  // Future<void> removeFavorite(String id) async {
-  //   if (_favoriteIds.remove(id)) {
-  //     notifyListeners();
-  //   }
-
-  //   await _settingsService.setFavorites(_favoriteIds);
-  // }
 }
