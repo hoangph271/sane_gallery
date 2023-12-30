@@ -19,18 +19,18 @@ class SettingsController with ChangeNotifier {
 
   late String _apiRoot;
   late String _apiKey;
-  late int _searchLimit;
+  late int _pageSize;
 
   ThemeMode get themeMode => _themeMode;
   String get apiRoot => _apiRoot;
   String get apiKey => _apiKey;
-  int get searchLimit => _searchLimit;
+  int get pageSize => _pageSize;
 
   Future<void> init() async {
     _themeMode = await _settingsService.themeMode();
     _apiRoot = await _settingsService.apiRoot();
     _apiKey = await _settingsService.apiKey();
-    _searchLimit = await _settingsService.searchLimit();
+    _pageSize = await _settingsService.pageSize();
 
     notifyListeners();
   }
@@ -39,17 +39,22 @@ class SettingsController with ChangeNotifier {
   Future<void> updateThemeMode(ThemeMode? newThemeMode) async {
     if (newThemeMode == null) return;
 
-    // Do not perform any work if new and old ThemeMode are identical
     if (newThemeMode == _themeMode) return;
 
-    // Otherwise, store the new ThemeMode in memory
     _themeMode = newThemeMode;
 
-    // Important! Inform listeners a change has occurred.
     notifyListeners();
 
-    // Persist the changes to a local database or the internet using the
-    // SettingService.
     await _settingsService.updateThemeMode(newThemeMode);
+  }
+
+  Future<void> updateSearchLimitRange(int limit) async {
+    if (_pageSize == limit) return;
+
+    _pageSize = limit;
+
+    notifyListeners();
+
+    await _settingsService.updateSearchLimit(limit);
   }
 }

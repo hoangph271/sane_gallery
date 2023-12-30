@@ -5,9 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/gifs/gifs_view.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
-import 'package:sane_gallery/src/settings/settings_view.dart';
 
-/// The Widget that configures your application.
 class SaneGallery extends StatelessWidget {
   final SettingsController settingsController;
   final GifsController gifsController;
@@ -49,8 +47,6 @@ class SaneGallery extends StatelessWidget {
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
-          // Define a function to handle named routes in order to support
-          // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
             return MaterialPageRoute<void>(
               settings: routeSettings,

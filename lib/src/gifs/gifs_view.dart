@@ -25,8 +25,6 @@ class GifsView extends StatefulWidget {
   State<GifsView> createState() => _GifsViewState();
 }
 
-const _pageSize = 12;
-
 class _GifsViewState extends State<GifsView> {
   final _searchController = TextEditingController();
   final _pagingController = PagingController<int, GifObject>(
@@ -42,6 +40,7 @@ class _GifsViewState extends State<GifsView> {
         _pagingController.appendLastPage([]);
         return;
       }
+
       _fetchGifs(_searchController.text, pageKey).then((result) {
         final gifs = result.gifObjects;
         final pagination = result.pagination;
@@ -58,12 +57,16 @@ class _GifsViewState extends State<GifsView> {
   }
 
   Future<GifFetchResult> _fetchGifs(String keyword, int pageKey) async {
-    final apiRoot = widget.settingsController.apiRoot;
-    final apiKey = widget.settingsController.apiKey;
-    final offset = pageKey * _pageSize;
+    final SettingsController(:apiRoot, :apiKey, :pageSize) =
+        widget.settingsController;
+
+    final offset = pageKey * pageSize;
+
     final url = Uri.parse(
-        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$_pageSize&offset=$offset&rating=g&lang=en');
+        '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$pageSize&offset=$offset&rating=g&lang=en');
+
     final res = await http.get(url);
+
     if (res.statusCode != 200) {
       // TODO: Handle error
     }

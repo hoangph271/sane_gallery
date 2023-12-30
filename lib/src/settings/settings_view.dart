@@ -14,9 +14,11 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 600),
         child: Column(
           children: [
-          SanePadding(
+            SanePadding(
               child: DropdownButton<ThemeMode>(
                 value: settingsController.themeMode,
                 onChanged: settingsController.updateThemeMode,
@@ -61,18 +63,19 @@ class SettingsView extends StatelessWidget {
               ),
             ),
             SanePadding(
-              child: TextField(
-                controller: TextEditingController(
-                    text: settingsController.searchLimit.toString()),
-                decoration: const InputDecoration(
-                  labelText: 'Search Limit',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: const TextInputType.numberWithOptions(
-                    signed: false, decimal: false),
+              child: Slider(
+                min: 8,
+                max: 24,
+                divisions: 4,
+                label: settingsController.pageSize.toString(),
+                onChanged: (value) {
+                  settingsController.updateSearchLimitRange(value.toInt());
+                },
+                value: settingsController.pageSize.toDouble(),
               ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }
