@@ -9,9 +9,6 @@ class SettingsSharedPreferencesKey {
 }
 
 class SettingsService {
-  /// Loads the User's preferred ThemeMode from local or remote storage.
-  Future<ThemeMode> themeMode() async => ThemeMode.system;
-
   Future<String> apiRoot() async => 'https://api.giphy.com/v1';
   Future<String> apiKey() async => 'ao3o2pNEYof5LZn2xixB7e1pVm7k1Xu4';
 
@@ -21,8 +18,12 @@ class SettingsService {
         defaultPageSize;
   }
 
-  /// Persists the user's preferred ThemeMode to local or remote storage.
-  Future<ThemeMode> updateThemeMode(ThemeMode theme) async {
+  Future<void> updateThemeMode(ThemeMode theme) async {
+    (await getSharedPreferences())
+        .setInt(SettingsSharedPreferencesKey.themeMode, theme.index);
+  }
+
+  Future<ThemeMode> themeMode() async {
     var themeModeIndex = (await getSharedPreferences())
             .getInt(SettingsSharedPreferencesKey.themeMode) ??
         ThemeMode.system.index;
