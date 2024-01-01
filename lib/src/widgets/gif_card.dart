@@ -1,16 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
+import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
-import 'package:sane_gallery/src/shared/sane_padding.dart';
+import 'package:sane_gallery/src/widgets/sane_padding.dart';
 
 class GifCard extends StatefulWidget {
   final SettingsController settingsController;
+  final GifsController gifsController;
 
   const GifCard({
     super.key,
     required this.gif,
     required this.settingsController,
+    required this.gifsController,
   });
 
   final GifObject gif;
@@ -23,7 +26,7 @@ class _GifCardState extends State<GifCard> {
   @override
   Widget build(BuildContext context) {
     final isFavorited =
-        widget.settingsController.favoriteIds.contains(widget.gif.id);
+        widget.gifsController.favoriteIds.contains(widget.gif.id);
 
     return Card(
         child: ClipRRect(
@@ -73,10 +76,10 @@ class _GifCardState extends State<GifCard> {
                             : Icons.favorite_border),
                         onPressed: () {
                           if (isFavorited) {
-                            widget.settingsController
+                            widget.gifsController
                                 .removeFavorite(widget.gif.id);
                           } else {
-                            widget.settingsController
+                            widget.gifsController
                                 .addFavorite(widget.gif.id);
                           }
                         },

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
-import 'package:sane_gallery/src/gifs/gifs_grid/gif_card.dart';
+import 'package:sane_gallery/src/gifs/gifs_controller.dart';
+import 'package:sane_gallery/src/widgets/gif_card.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
-import 'package:sane_gallery/src/shared/sane_padding.dart';
+import 'package:sane_gallery/src/widgets/sane_padding.dart';
 
 class GifsSearchView extends StatefulWidget {
   final SettingsController settingsController;
+  final GifsController gifsController;
   final PagingController<int, GifObject> pagingController;
+
   final ValueChanged<String> handleSearch;
   final TextEditingController searchController;
 
@@ -17,6 +20,7 @@ class GifsSearchView extends StatefulWidget {
     required this.pagingController,
     required this.handleSearch,
     required this.searchController,
+    required this.gifsController,
   });
 
   @override
@@ -76,6 +80,7 @@ class _GifsSearchViewState extends State<GifsSearchView> {
                     itemBuilder: (context, gif, index) => GifCard(
                       settingsController: widget.settingsController,
                       gif: gif,
+                      gifsController: widget.gifsController,
                     ),
                   ),
                 );

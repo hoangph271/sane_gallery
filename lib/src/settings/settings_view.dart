@@ -1,36 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:sane_gallery/src/shared/sane_padding.dart';
 
-import 'settings_controller.dart';
+import 'package:sane_gallery/src/settings/settings_controller.dart';
+import 'package:sane_gallery/src/widgets/sane_padding.dart';
 
-/// Displays the various settings that can be customized by the user.
-///
-/// When a user changes a setting, the SettingsController is updated and
-/// Widgets that listen to the SettingsController are rebuilt.
 class SettingsView extends StatelessWidget {
-  const SettingsView({super.key, required this.controller});
+  const SettingsView(
+      {super.key,
+    required this.settingsController,
+  });
 
-  static const routeName = '/settings';
-
-  final SettingsController controller;
+  final SettingsController settingsController;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Center(
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 600),
         child: Column(
           children: [
             SanePadding(
-                child: Text(
-              'Favorite count: ${controller.favoriteIds.length}',
-            )),
-            SanePadding(
               child: DropdownButton<ThemeMode>(
-                value: controller.themeMode,
-                onChanged: controller.updateThemeMode,
+                value: settingsController.themeMode,
+                onChanged: settingsController.updateThemeMode,
                 items: const [
                   DropdownMenuItem(
                     value: ThemeMode.system,
@@ -50,7 +41,8 @@ class SettingsView extends StatelessWidget {
             SanePadding(
               child: TextField(
                 readOnly: true,
-                controller: TextEditingController(text: controller.apiRoot),
+                controller:
+                    TextEditingController(text: settingsController.apiRoot),
                 decoration: const InputDecoration(
                   labelText: 'API Root',
                   border: OutlineInputBorder(),
@@ -61,7 +53,8 @@ class SettingsView extends StatelessWidget {
             SanePadding(
               child: TextField(
                 readOnly: true,
-                controller: TextEditingController(text: controller.apiKey),
+                controller:
+                    TextEditingController(text: settingsController.apiKey),
                 decoration: const InputDecoration(
                   labelText: 'API Key',
                   border: OutlineInputBorder(),
@@ -70,15 +63,15 @@ class SettingsView extends StatelessWidget {
               ),
             ),
             SanePadding(
-              child: TextField(
-                controller: TextEditingController(
-                    text: controller.searchLimit.toString()),
-                decoration: const InputDecoration(
-                  labelText: 'Search Limit',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: const TextInputType.numberWithOptions(
-                    signed: false, decimal: false),
+              child: Slider(
+                min: 8,
+                max: 24,
+                divisions: 4,
+                label: settingsController.pageSize.toString(),
+                onChanged: (value) {
+                  settingsController.updatePageSize(value.toInt());
+                },
+                value: settingsController.pageSize.toDouble(),
               ),
             ),
           ],
