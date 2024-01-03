@@ -19,22 +19,15 @@ class SettingsView extends StatelessWidget {
         child: Column(
           children: [
             SanePadding(
-              child: DropdownButton<ThemeMode>(
-                value: settingsController.themeMode,
-                onChanged: settingsController.updateThemeMode,
-                items: const [
-                  DropdownMenuItem(
-                    value: ThemeMode.system,
-                    child: Text('System Theme'),
-                  ),
-                  DropdownMenuItem(
-                    value: ThemeMode.light,
-                    child: Text('Light Theme'),
-                  ),
-                  DropdownMenuItem(
-                    value: ThemeMode.dark,
-                    child: Text('Dark Theme'),
-                  )
+              child: ToggleButtons(
+                onPressed: _handleToggleTheme,
+                isSelected: [
+                  settingsController.themeMode == ThemeMode.light,
+                  settingsController.themeMode == ThemeMode.dark,
+                ],
+                children: const [
+                  Icon(Icons.light_mode),
+                  Icon(Icons.dark_mode),
                 ],
               ),
             ),
@@ -78,5 +71,21 @@ class SettingsView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _handleToggleTheme(index) {
+    if (index == 0) {
+      settingsController.updateThemeMode(
+        settingsController.themeMode == ThemeMode.light
+            ? ThemeMode.system
+            : ThemeMode.light,
+      );
+    } else if (index == 1) {
+      settingsController.updateThemeMode(
+        settingsController.themeMode == ThemeMode.dark
+            ? ThemeMode.system
+            : ThemeMode.dark,
+      );
+    }
   }
 }
