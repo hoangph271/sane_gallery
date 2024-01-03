@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
+import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_box.dart';
 import 'package:sane_gallery/src/widgets/gif_card.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';
@@ -47,24 +49,23 @@ class _GifsSearchViewState extends State<GifsSearchView> {
 
   @override
   Widget build(BuildContext context) {
+    final GifsSearchView(
+      :onSearch,
+      :searchController,
+    ) = widget;
+
     return Column(
       children: [
         SanePadding(
-          child: TextField(
-            controller: widget.searchController,
-            textInputAction: TextInputAction.search,
-            onSubmitted: widget.onSearch,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.search),
-              labelText: 'Keyword',
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: GifsSearchBox(
+              searchController: searchController,
+              onSearch: onSearch,
             ),
           ),
         ),
-        if ((widget.pagingController.itemList?.length ?? 0) > 0)
-          Center(
-              child: Text(
-                  'Loaded $_itemsCount/${widget.totalItemsCount} results.')),
+        if (_itemsCount > 0) Center(child: Text('Found $_itemsCount results.')),
         Expanded(
           child: SanePadding(
             paddingSize: PaddingSize.small,
@@ -82,6 +83,39 @@ class _GifsSearchViewState extends State<GifsSearchView> {
                     childAspectRatio: 4 / 3,
                   ),
                   builderDelegate: PagedChildBuilderDelegate<GifObject>(
+                    noItemsFoundIndicatorBuilder: (context) => Center(
+                      child: Column(
+                        children: [
+                          if (searchController.text.isEmpty) ...[
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 16),
+                              child: Text('Start by typing a keyword'),
+                            ),
+                            CachedNetworkImage(
+                              imageUrl:
+                                  'https://i.giphy.com/RMwYOO5e8pr1lhL8K7.webp',
+                              imageBuilder: (context, imageProvider) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(300),
+                                  child: Container(
+                                    width: 300,
+                                    height: 300,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    )),
+                                  ),
+                                );
+                              },
+                            ),
+                          ] else ...[
+                            const Text(
+                                'Sorry, no GIFs found. Try another keyword...!'),
+                          ],
+                        ],
+                      ),
+                    ),
                     itemBuilder: (context, gif, index) => GifCard(
                       settingsController: widget.settingsController,
                       gif: gif,
