@@ -106,7 +106,7 @@ class _GifsViewState extends State<GifsView> {
                 ),
                 Tab(
                   icon: const Icon(Icons.favorite_border),
-                  text: 'Favourites ($favoritesCount)',
+                  text: 'Saved ($favoritesCount)',
                 ),
                 const Tab(
                   icon: Icon(Icons.settings_outlined),
