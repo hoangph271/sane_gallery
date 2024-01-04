@@ -58,7 +58,7 @@ class _FavoritedGifsViewState extends State<FavoritedGifsView> {
   Widget build(BuildContext context) {
     if (_hasNoFavorites) {
       return const Center(
-        child: Text('You have no favorited gifs'),
+        child: Text("You don't have any favorited gifs yet."),
       );
     }
 
