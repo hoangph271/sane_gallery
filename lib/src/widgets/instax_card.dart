@@ -22,7 +22,7 @@ class InstaxCard extends StatelessWidget {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).shadowColor,
+                  color: Theme.of(context).shadowColor.withAlpha(125),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
