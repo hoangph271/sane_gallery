@@ -5,29 +5,24 @@ class ImageCard extends StatelessWidget {
   const ImageCard({
     super.key,
     required this.widget,
-    required this.isFavorited,
     required this.imageProvider,
     this.cardCaption,
   });
 
   final GifCard widget;
-  final bool isFavorited;
   final ImageProvider<Object> imageProvider;
   final Widget? cardCaption;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.cover,
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: imageProvider,
+          fit: BoxFit.cover,
         ),
-        child: cardCaption,
       ),
+      child: cardCaption,
     );
   }
 }

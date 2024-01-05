@@ -7,6 +7,7 @@ import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/image_card/card_caption.dart';
 import 'package:sane_gallery/src/widgets/image_card/image_card.dart';
 import 'package:sane_gallery/src/widgets/instax_card.dart';
+import 'package:sane_gallery/src/widgets/squircle_box.dart';
 
 class GifCard extends StatefulWidget {
   final SettingsController settingsController;
@@ -33,20 +34,29 @@ class _GifCardState extends State<GifCard> {
 
     return CachedNetworkImage(
       imageUrl: widget.gif.previewUrl,
-      placeholder: (context, url) => CachedNetworkImage(
-        imageUrl: widget.gif.thumbnailUrl,
-        fit: BoxFit.cover,
+      placeholder: (context, url) => Card(
+        child: SquircleBox(
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(url),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
       ),
       imageBuilder: (context, imageProvider) {
         return FlipCard(
             front: Card(
-                child: ImageCard(
-              widget: widget,
-              isFavorited: isFavorited,
-              imageProvider: imageProvider,
-              cardCaption: CardCaption(
+                child: SquircleBox(
+              child: ImageCard(
                 widget: widget,
-                isFavorited: isFavorited,
+                imageProvider: imageProvider,
+                cardCaption: CardCaption(
+                  widget: widget,
+                  isFavorited: isFavorited,
+                ),
               ),
             )),
             back: InstaxCard(

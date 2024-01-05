@@ -18,13 +18,13 @@ class InstaxCard extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 2.1 / 3.4,
           child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
+                  color: Theme.of(context).shadowColor,
                   blurRadius: 8,
-                  offset: Offset(0, 4),
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),
