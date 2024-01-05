@@ -65,7 +65,10 @@ class _GifsSearchViewState extends State<GifsSearchView> {
             ),
           ),
         ),
-        if (_itemsCount > 0) Center(child: Text('Found $_itemsCount results.')),
+        if (_itemsCount > 0)
+          Center(
+              child: Text(
+                  'Loaded $_itemsCount/${widget.totalItemsCount} images.')),
         Expanded(
           child: SanePadding(
             paddingSize: PaddingSize.small,
