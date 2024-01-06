@@ -19,8 +19,6 @@ class GifsView extends StatefulWidget {
       required this.settingsController,
       required this.gifsController});
 
-  static const routeName = '/gifs';
-
   @override
   State<GifsView> createState() => _GifsViewState();
 }
@@ -36,13 +34,13 @@ class _GifsViewState extends State<GifsView> {
   void initState() {
     super.initState();
 
-    _pagingController.addPageRequestListener((pageKey) {
+    _pagingController.addPageRequestListener((offset) {
       if (_searchController.text.isEmpty) {
         _pagingController.appendLastPage([]);
         return;
       }
 
-      _fetchGifs(_searchController.text, pageKey).then((result) {
+      _fetchGifs(_searchController.text, offset).then((result) {
         final gifs = result.gifObjects;
         final pagination = result.pagination;
         final isLastPage =
@@ -55,18 +53,16 @@ class _GifsViewState extends State<GifsView> {
         if (isLastPage) {
           _pagingController.appendLastPage(gifs);
         } else {
-          final nextPageKey = pageKey + gifs.length;
-          _pagingController.appendPage(gifs, nextPageKey);
+          final nextOffset = offset + gifs.length;
+          _pagingController.appendPage(gifs, nextOffset);
         }
       });
     });
   }
 
-  Future<GifFetchResult> _fetchGifs(String keyword, int pageKey) async {
+  Future<GifFetchResult> _fetchGifs(String keyword, int offset) async {
     final SettingsController(:apiRoot, :apiKey, :pageSize) =
         widget.settingsController;
-
-    final offset = pageKey * pageSize;
 
     final url = Uri.parse(
         '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$pageSize&offset=$offset&rating=g&lang=en');
