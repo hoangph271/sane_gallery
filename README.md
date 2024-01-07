@@ -56,7 +56,6 @@ flutter run
 - [x] Infinite scroll
 - [x] Deploy the web app
 - [x] Automate the Android build process
-- [ ] ~~Remove favorites from view when unfavorited~~
 
 ## License
 
