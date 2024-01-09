@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'src/gifs/gifs_controller.dart';
-import 'src/gifs/gifs_service.dart';
+import 'src/screens/gifs/gifs_controller.dart';
+import 'src/screens/gifs/gifs_service.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 import 'src/app.dart';
