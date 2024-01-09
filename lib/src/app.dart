@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
-import 'package:sane_gallery/src/gifs/gifs_view.dart';
+import 'package:sane_gallery/src/router.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 
 class SaneGallery extends StatelessWidget {
@@ -21,7 +21,7 @@ class SaneGallery extends StatelessWidget {
     return ListenableBuilder(
       listenable: Listenable.merge([settingsController, gifsController]),
       builder: (BuildContext context, Widget? _) {
-        return MaterialApp(
+        return MaterialApp.router(
           // * Providing a restorationScopeId allows the Navigator built by the
           // * MaterialApp to restore the navigation stack when a user leaves and
           // * returns to the app after it has been killed while running in the
@@ -47,20 +47,10 @@ class SaneGallery extends StatelessWidget {
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
-          onGenerateRoute: (RouteSettings routeSettings) {
-            return MaterialPageRoute<void>(
-              settings: routeSettings,
-              builder: (BuildContext context) {
-                switch (routeSettings.name) {
-                  default:
-                    return GifsView(
-                      settingsController: settingsController,
-                      gifsController: gifsController,
-                    );
-                }
-              },
-            );
-          },
+          routerConfig: routerConfig(
+            settingsController,
+            gifsController,
+          ),
         );
       },
     );
