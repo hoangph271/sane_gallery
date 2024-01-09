@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:sane_gallery/src/gifs/gifs_controller.dart';
-import 'package:sane_gallery/src/gifs/gifs_view.dart';
-import 'package:sane_gallery/src/magic_toolbox/magic_toolbox.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_controller.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_view.dart';
+import 'package:sane_gallery/src/screens/magic_toolbox/magic_toolbox.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 
 routerConfig(

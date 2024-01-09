@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sane_gallery/src/magic_toolbox/magic_toolbox.dart';
+import 'package:sane_gallery/src/screens/magic_toolbox/magic_toolbox.dart';
 
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';

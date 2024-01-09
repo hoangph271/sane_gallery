@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:sane_gallery/src/gifs/gif_model.dart';
-import 'package:sane_gallery/src/gifs/gifs_controller.dart';
-import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_box.dart';
+import 'package:sane_gallery/src/screens/gifs/gif_model.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_controller.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_search/gifs_search_box.dart';
 import 'package:sane_gallery/src/widgets/gif_card.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';
@@ -23,7 +23,7 @@ class GifsSearchView extends StatefulWidget {
     required this.pagingController,
     required this.onSearch,
     required this.searchController,
-    required this.gifsController, 
+    required this.gifsController,
     required this.totalItemsCount,
   });
 

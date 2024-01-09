@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:sane_gallery/src/gifs/gif_model.dart';
-import 'package:sane_gallery/src/gifs/gifs_controller.dart';
+import 'package:sane_gallery/src/screens/gifs/gif_model.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/image_card/card_caption.dart';
 import 'package:sane_gallery/src/widgets/image_card/image_card.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'package:sane_gallery/src/gifs/gifs_controller.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/router.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 

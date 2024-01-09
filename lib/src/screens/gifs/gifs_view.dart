@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:sane_gallery/src/gifs/gifs_controller.dart';
-import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
-import 'package:sane_gallery/src/gifs/gif_model.dart';
-import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_view.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_controller.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_favorites/favorited_gifs_view.dart';
+import 'package:sane_gallery/src/screens/gifs/gif_model.dart';
+import 'package:sane_gallery/src/screens/gifs/gifs_search/gifs_search_view.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/settings/settings_view.dart';
 import 'package:sane_gallery/src/widgets/sane_title.dart';
