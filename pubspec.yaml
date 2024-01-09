@@ -20,6 +20,7 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   flutter_native_splash: ^2.3.8
   flip_card: ^0.7.0
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -35,8 +36,8 @@ flutter:
   generate: true
 
   assets:
-    # Add assets from the images directory to the application.
     - assets/images/
+    - assets/svg/
 
 flutter_native_splash:
   # Customize the parameters below, and run the following command in the terminal:
