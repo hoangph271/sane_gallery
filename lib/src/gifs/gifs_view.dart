@@ -11,6 +11,8 @@ import 'package:sane_gallery/src/widgets/sane_title.dart';
 import 'package:http/http.dart' as http;
 
 class GifsView extends StatefulWidget {
+  static const pathName = '/';
+
   final SettingsController settingsController;
   final GifsController gifsController;
 
@@ -75,6 +77,13 @@ class _GifsViewState extends State<GifsView> {
     return GifFetchResult.fromJson(jsonDecode(res.body));
   }
 
+  void _handleSearch(keyword) {
+    if (keyword.isEmpty) {
+      return;
+    }
+    _pagingController.refresh();
+  }
+
   @override
   Widget build(BuildContext context) {
     final favoritesCount = widget.gifsController.favoriteIds.length;
@@ -119,12 +128,5 @@ class _GifsViewState extends State<GifsView> {
             ),
           )),
     );
-  }
-
-  void _handleSearch(keyword) {
-    if (keyword.isEmpty) {
-      return;
-    }
-    _pagingController.refresh();
   }
 }

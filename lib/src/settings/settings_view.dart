@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sane_gallery/src/magic_toolbox/magic_toolbox.dart';
 
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';
 import 'package:sane_gallery/src/widgets/toggle_theme_buttons.dart';
 
 class SettingsView extends StatelessWidget {
-  const SettingsView(
-      {super.key,
+  const SettingsView({
+    super.key,
     required this.settingsController,
   });
 
@@ -84,7 +86,7 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // settingsController.reset();
+                  context.go(MagicToolbox.pathName);
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 12),
