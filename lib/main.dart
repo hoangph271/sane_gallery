@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'src/gifs/gifs_controller.dart';
 import 'src/gifs/gifs_service.dart';
 import 'src/settings/settings_controller.dart';
@@ -13,7 +14,7 @@ void main() async {
   runApp(app);
 }
 
-Future<SaneGalleryApp> initApp() async {
+Future<Widget> initApp() async {
   final settingsController = SettingsController(SettingsService());
   final gifsController = GifsController(GifsService());
 
@@ -22,8 +23,15 @@ Future<SaneGalleryApp> initApp() async {
     gifsController.init(),
   ]);
 
-  return SaneGalleryApp(
-    settingsController: settingsController,
-    gifsController: gifsController,
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider<SettingsController>(
+        create: (context) => settingsController,
+      ),
+      ChangeNotifierProvider<GifsController>(
+        create: (context) => gifsController,
+      ),
+    ],
+    child: SaneGalleryApp(),
   );
 }
