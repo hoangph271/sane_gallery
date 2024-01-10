@@ -13,7 +13,7 @@ void main() async {
   runApp(app);
 }
 
-Future<SaneGallery> initApp() async {
+Future<SaneGalleryApp> initApp() async {
   final settingsController = SettingsController(SettingsService());
   final gifsController = GifsController(GifsService());
 
@@ -22,7 +22,7 @@ Future<SaneGallery> initApp() async {
     gifsController.init(),
   ]);
 
-  return SaneGallery(
+  return SaneGalleryApp(
     settingsController: settingsController,
     gifsController: gifsController,
   );

@@ -6,11 +6,11 @@ import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/router.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 
-class SaneGallery extends StatelessWidget {
+class SaneGalleryApp extends StatelessWidget {
   final SettingsController settingsController;
   final GifsController gifsController;
 
-  const SaneGallery({
+  const SaneGalleryApp({
     super.key,
     required this.settingsController,
     required this.gifsController,
