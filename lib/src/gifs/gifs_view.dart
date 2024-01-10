@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
 import 'package:sane_gallery/src/gifs/gifs_controller.dart';
 import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
 import 'package:sane_gallery/src/gifs/gif_model.dart';
@@ -13,13 +14,7 @@ import 'package:http/http.dart' as http;
 class GifsView extends StatefulWidget {
   static const pathName = '/';
 
-  final SettingsController settingsController;
-  final GifsController gifsController;
-
-  const GifsView(
-      {super.key,
-      required this.settingsController,
-      required this.gifsController});
+  const GifsView({super.key});
 
   @override
   State<GifsView> createState() => _GifsViewState();
@@ -64,7 +59,7 @@ class _GifsViewState extends State<GifsView> {
 
   Future<GifFetchResult> _fetchGifs(String keyword, int offset) async {
     final SettingsController(:apiRoot, :apiKey, :pageSize) =
-        widget.settingsController;
+        Provider.of<SettingsController>(context, listen: false);
 
     final url = Uri.parse(
         '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$pageSize&offset=$offset&rating=g&lang=en');
@@ -86,7 +81,10 @@ class _GifsViewState extends State<GifsView> {
 
   @override
   Widget build(BuildContext context) {
-    final favoritesCount = widget.gifsController.favoriteIds.length;
+    final gifsController = Provider.of<GifsController>(context);
+    final settingsController = Provider.of<SettingsController>(context);
+
+    final favoritesCount = gifsController.favoriteIds.length;
 
     return SafeArea(
       child: DefaultTabController(
@@ -95,21 +93,26 @@ class _GifsViewState extends State<GifsView> {
             appBar: AppBar(
               title: const SaneTitle(),
             ),
-            body: TabBarView(children: [
-              GifsSearchView(
-                pagingController: _pagingController,
-                searchController: _searchController,
-                onSearch: _handleSearch,
-                settingsController: widget.settingsController,
-                gifsController: widget.gifsController,
-                totalItemsCount: _totalItemsCount,
-              ),
-              FavoritedGifsView(
-                settingsController: widget.settingsController,
-                gifsController: widget.gifsController,
-              ),
-              SettingsView(settingsController: widget.settingsController),
-            ]),
+            body: ListenableBuilder(
+              listenable: gifsController,
+              builder: (context, child) {
+                return TabBarView(children: [
+                  GifsSearchView(
+                    pagingController: _pagingController,
+                    searchController: _searchController,
+                    onSearch: _handleSearch,
+                    settingsController: settingsController,
+                    gifsController: gifsController,
+                    totalItemsCount: _totalItemsCount,
+                  ),
+                  FavoritedGifsView(
+                    settingsController: settingsController,
+                    gifsController: gifsController,
+                  ),
+                  SettingsView(settingsController: settingsController),
+                ]);
+              },
+            ),
             bottomNavigationBar: TabBar(
               tabs: [
                 const Tab(
