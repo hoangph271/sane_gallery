@@ -13,7 +13,7 @@ class InstaxCard extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: RotatedBox(
-        // TODO: calculate quarterTurns based on image orientation
+        // FIXME: calculate quarterTurns based on image orientation
         quarterTurns: 0,
         child: AspectRatio(
           aspectRatio: 2.1 / 3.4,
@@ -36,6 +36,18 @@ class InstaxCard extends StatelessWidget {
                   aspectRatio: 1.8 / 2.4,
                   child: Container(
                     decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Theme.of(context).shadowColor.withAlpha(25),
+                        width: 1,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context).shadowColor.withAlpha(125),
+                          blurRadius: 4,
+                          spreadRadius: -4,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                       image: DecorationImage(
                         image: imageProvider,
                         fit: BoxFit.cover,
