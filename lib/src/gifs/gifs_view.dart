@@ -59,7 +59,7 @@ class _GifsViewState extends State<GifsView> {
 
   Future<GifFetchResult> _fetchGifs(String keyword, int offset) async {
     final SettingsController(:apiRoot, :apiKey, :pageSize) =
-        Provider.of<SettingsController>(context);
+        Provider.of<SettingsController>(context, listen: false);
 
     final url = Uri.parse(
         '$apiRoot/gifs/search?api_key=$apiKey&q=$keyword&limit=$pageSize&offset=$offset&rating=g&lang=en');
@@ -93,21 +93,26 @@ class _GifsViewState extends State<GifsView> {
             appBar: AppBar(
               title: const SaneTitle(),
             ),
-            body: TabBarView(children: [
-              GifsSearchView(
-                pagingController: _pagingController,
-                searchController: _searchController,
-                onSearch: _handleSearch,
-                settingsController: settingsController,
-                gifsController: gifsController,
-                totalItemsCount: _totalItemsCount,
-              ),
-              FavoritedGifsView(
-                settingsController: settingsController,
-                gifsController: gifsController,
-              ),
-              SettingsView(settingsController: settingsController),
-            ]),
+            body: ListenableBuilder(
+              listenable: gifsController,
+              builder: (context, child) {
+                return TabBarView(children: [
+                  GifsSearchView(
+                    pagingController: _pagingController,
+                    searchController: _searchController,
+                    onSearch: _handleSearch,
+                    settingsController: settingsController,
+                    gifsController: gifsController,
+                    totalItemsCount: _totalItemsCount,
+                  ),
+                  FavoritedGifsView(
+                    settingsController: settingsController,
+                    gifsController: gifsController,
+                  ),
+                  SettingsView(settingsController: settingsController),
+                ]);
+              },
+            ),
             bottomNavigationBar: TabBar(
               tabs: [
                 const Tab(
