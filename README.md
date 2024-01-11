@@ -2,6 +2,8 @@
 
 <h1 style="font-weight: normal;">sane<b>Gallery</b></h1>
 
+[![Build APK](https://github.com/hoangph271/sane_gallery/actions/workflows/build.yml/badge.svg)](https://github.com/hoangph271/sane_gallery/actions/workflows/build.yml)
+
 sane**Gallery** is the Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
 
 ## Deployed Web Version
