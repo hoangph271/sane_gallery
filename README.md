@@ -1,12 +1,12 @@
 ![sane_gallery logo](android/app/src/main/res/drawable-mdpi/android12splash.png)
 
-<h1 style="font-weight: normal;">Sane<b>Gallery</b></h1>
+<h1 style="font-weight: normal;">sane<b>Gallery</b></h1>
 
-Sane**Gallery** is the Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
+sane**Gallery** is the Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
 
 ## Deployed Web Version
 
-Check out the live version of [SaneGallery on the Web.](https://sane-gallery.netlify.app/)
+Check out the live version of [**saneGallery** on the Web.](https://sane-gallery.netlify.app/)
 
 ## Android Build
 

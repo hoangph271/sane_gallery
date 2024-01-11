@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sane_gallery/src/magic_toolbox/magic_toolbox.dart';
 
 import 'package:sane_gallery/src/settings/settings_controller.dart';
+import 'package:sane_gallery/src/widgets/fancy_elevated_button.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';
 import 'package:sane_gallery/src/widgets/toggle_theme_buttons.dart';
 
@@ -72,36 +73,17 @@ class SettingsView extends StatelessWidget {
             ),
             SanePadding(
                 child: UnconstrainedBox(
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(0),
-                        topRight: Radius.circular(8.0),
-                        bottomLeft: Radius.circular(8.0),
-                        bottomRight: Radius.circular(0),
-                      ),
-                    ),
-                  ),
-                ),
+              child: FancyElevatedButton(
+                label: const Text('Magic Toolbox'),
                 onPressed: () {
                   context.go(MagicToolbox.pathName);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 12),
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 8,
-                    children: [
-                      const Text('Magic Toolbox'),
-                      SvgPicture.asset('assets/svg/magic-wand.svg',
-                          width: 16,
-                          height: 16,
-                          colorFilter: ColorFilter.mode(
-                              Theme.of(context).primaryColor, BlendMode.srcIn)),
-                    ],
-                  ),
+                icon: SvgPicture.asset(
+                  'assets/svg/magic-wand.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: ColorFilter.mode(
+                      Theme.of(context).primaryColor, BlendMode.srcIn),
                 ),
               ),
             )),
