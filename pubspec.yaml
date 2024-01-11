@@ -24,6 +24,8 @@ dependencies:
   go_router: ^13.0.1
   provider: ^6.1.1
   image_picker: ^1.0.7
+  widgets_to_image: ^0.0.2
+  file_saver: ^0.2.9
 
 dev_dependencies:
   flutter_test:
