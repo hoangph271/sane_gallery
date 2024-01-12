@@ -55,6 +55,7 @@ flutter run
 - [ ] [The search box not visible on the web after splash screen disappeared](https://github.com/hoangph271/sane_gallery/issues/9)
 <details>
   <summary>Done</summary>
+
 - [x] User toolbox  
 - [x] macos support  
 - [x] splash screen  
@@ -62,6 +63,7 @@ flutter run
 - [x] Infinite scroll  
 - [x] Deploy the web app  
 - [x] Automate the Android build process  
+
 </details>
 
 ## License
