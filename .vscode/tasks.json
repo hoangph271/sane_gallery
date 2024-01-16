@@ -67,7 +67,7 @@
       ],
       "group": "build",
       "problemMatcher": [],
-      "label": "flutter clean",
+      "label": "flutter:clean",
     }
   ]
 }

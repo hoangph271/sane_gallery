@@ -32,6 +32,6 @@ Future<Widget> initApp() async {
         create: (context) => gifsController,
       ),
     ],
-    child: SaneGalleryApp(),
+    child: const SaneGalleryApp(),
   );
 }

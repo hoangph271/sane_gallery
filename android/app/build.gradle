@@ -24,8 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.sane_gallery"
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    compileSdk 34
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -58,6 +57,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    ndkVersion "26.1.10909125"
 }
 
 flutter {
