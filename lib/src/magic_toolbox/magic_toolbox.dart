@@ -3,11 +3,11 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sane_gallery/src/magic_toolbox/share_image_button.dart';
+import 'package:sane_gallery/src/shared/platform_checks.dart';
 import 'package:sane_gallery/src/widgets/fancy_elevated_button.dart';
 import 'package:sane_gallery/src/widgets/instax_card.dart';
-import 'package:sane_gallery/src/widgets/mobile_only_widget.dart';
 import 'package:sane_gallery/src/widgets/sane_padding.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 
 class MagicToolbox extends StatefulWidget {
@@ -82,23 +82,9 @@ class _MagicToolboxState extends State<MagicToolbox> {
                                   icon: const Icon(Icons.download_sharp),
                                 ),
                                 const SizedBox(width: 16),
-                                MobileOnlyWidget(
-                                    child: IconButton.outlined(
-                                  icon: const Icon(Icons.share),
-                                  onPressed: () async {
-                                    final bytes = await widgetsToImageController
-                                        .capture();
-
-                                    Share.shareXFiles([
-                                      XFile.fromData(
-                                        bytes!,
-                                        name:
-                                            'saneGallery ${DateTime.now().toIso8601String()}.png',
-                                        mimeType: 'image/png',
-                                      ),
-                                    ]);
-                                  },
-                                )),
+                                ShareImageButton(
+                                    widgetsToImageController:
+                                        widgetsToImageController),
                               ],
                             ),
                           ),
@@ -117,13 +103,27 @@ class _MagicToolboxState extends State<MagicToolbox> {
   void _saveInstaxPng() async {
     final bytes = await widgetsToImageController.capture();
 
-    final res = await FileSaver.instance.saveFile(
-      name: 'saneGallery ${DateTime.now().toIso8601String()}',
-      bytes: bytes!,
-      mimeType: MimeType.png,
-      ext: 'png',
-    );
+    if (bytes == null) {
+      // TODO: show error
+      return;
+    }
 
-    print(res);
+    final fileName = 'saneGallery ${DateTime.now().toIso8601String()}.png';
+
+    if (isSaveAsSupported) {
+      await FileSaver.instance.saveAs(
+        name: fileName,
+        bytes: bytes,
+        mimeType: MimeType.png,
+        ext: 'png',
+      );
+    } else {
+      await FileSaver.instance.saveFile(
+        name: fileName,
+        bytes: bytes,
+        mimeType: MimeType.png,
+        ext: 'png',
+      );
+    }
   }
 }
