@@ -17,13 +17,3 @@ bool get isSaveAsSupported {
     return false;
   }
 }
-
-bool get isShareSupported {
-  if (isWeb) {
-    if (Platform.isMacOS) {
-      return false;
-    }
-  }
-
-  return true;
-}

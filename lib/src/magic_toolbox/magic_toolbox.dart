@@ -81,14 +81,13 @@ class _MagicToolboxState extends State<MagicToolbox> {
                                   onPressed: _saveInstaxPng,
                                   icon: const Icon(Icons.download_sharp),
                                 ),
-                                if (isShareSupported)
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 16.0),
-                                    child: ShareImageButton(
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 16.0),
+                                  child: ShareImageButton(
                                     widgetsToImageController:
-                                          widgetsToImageController,
-                                    ),
+                                        widgetsToImageController,
                                   ),
+                                ),
                               ],
                             ),
                           ),
