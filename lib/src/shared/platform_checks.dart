@@ -1,11 +1,16 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 
-bool isMobile = Platform.isAndroid || Platform.isIOS;
-const bool isWeb = kIsWeb;
+bool get isMobile {
+  if (kIsWeb) {
+    return false;
+  }
+
+  return Platform.isAndroid || Platform.isIOS;
+}
 
 bool get isSaveAsSupported {
-  if (isWeb) {
+  if (kIsWeb) {
     return false;
   } else if (Platform.isAndroid) {
     return true;
