@@ -23,15 +23,16 @@ class FavoritedGifsView extends StatefulWidget {
 }
 
 class _FavoritedGifsViewState extends State<FavoritedGifsView> {
-  late Future<List<GifObject>>? _favoritedGifsFuture;
+  late Future<List<GifObject>> _favoritedGifsFuture;
 
   get _hasNoFavorites => widget.gifsController.favoriteIds.isEmpty;
+  get _hasFavorites => widget.gifsController.favoriteIds.isNotEmpty;
 
   @override
   void initState() {
     super.initState();
 
-    if (!_hasNoFavorites) {
+    if (_hasFavorites) {
       _favoritedGifsFuture = _getFavoritedGifs();
     }
   }
@@ -46,7 +47,9 @@ class _FavoritedGifsViewState extends State<FavoritedGifsView> {
     final res = await http.get(url);
 
     if (res.statusCode != 200) {
-      // TODO: Handle error
+      final errorText = 'Failed to fetch favorited gifs: ${res.body}';
+
+      return Future.error(errorText);
     }
 
     final gifs = GifFetchResult.fromJson(jsonDecode(res.body)).gifObjects;
