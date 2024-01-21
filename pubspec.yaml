@@ -27,6 +27,7 @@ dependencies:
   widgets_to_image: ^0.0.2
   file_saver: ^0.2.9
   share_plus: ^7.2.1
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:

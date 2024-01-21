@@ -3,6 +3,7 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
 import 'package:sane_gallery/src/magic_toolbox/share_image_button.dart';
 import 'package:sane_gallery/src/shared/platform_checks.dart';
 import 'package:sane_gallery/src/widgets/fancy_elevated_button.dart';
@@ -106,9 +107,17 @@ class _MagicToolboxState extends State<MagicToolbox> {
   void _saveInstaxPng() async {
     final bytes = await widgetsToImageController.capture();
 
-    if (bytes == null) {
-      // TODO: show error
-      return;
+    if (bytes != null) {
+      const errorMessage = 'Failed to save Instax image';
+      Logger().e(errorMessage);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(errorMessage),
+          ),
+        );
+      }
     }
 
     final fileName = 'saneGallery ${DateTime.now().toIso8601String()}.png';
