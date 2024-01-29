@@ -106,23 +106,17 @@ class _MagicToolboxState extends State<MagicToolbox> {
 
   void _saveInstaxPng() async {
     final bytes = await widgetsToImageController.capture();
+    var message = 'Unknown error';
 
-    if (bytes != null) {
-      const errorMessage = 'Failed to save Instax image';
-      Logger().e(errorMessage);
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
-          ),
-        );
-      }
+    if (bytes?.isEmpty ?? true) {
+      message = 'Failed to capture Instax';
+      Logger().e(message);
     }
 
-    final fileName = 'saneGallery ${DateTime.now().toIso8601String()}.png';
+    final fileName = 'saneGallery_${DateTime.now().millisecondsSinceEpoch}';
 
     if (isSaveAsSupported) {
+      // TODO: Get output string
       await FileSaver.instance.saveAs(
         name: fileName,
         bytes: bytes,
@@ -130,11 +124,19 @@ class _MagicToolboxState extends State<MagicToolbox> {
         ext: 'png',
       );
     } else {
-      await FileSaver.instance.saveFile(
+      message = await FileSaver.instance.saveFile(
         name: fileName,
         bytes: bytes,
         mimeType: MimeType.png,
         ext: 'png',
+      );
+    }
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+        ),
       );
     }
   }
