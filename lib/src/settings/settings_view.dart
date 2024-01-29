@@ -26,6 +26,19 @@ class SettingsView extends StatelessWidget {
             SanePadding(
               child: ToggleThemeButtons(settingsController: settingsController),
             ),
+            OrientationBuilder(builder: (context, orientation) {
+              return SanePadding(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Orientation: ${orientation.toString().split('.').last}',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              );
+            }),
             SanePadding(
               child: TextField(
                 readOnly: true,
