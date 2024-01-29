@@ -36,15 +36,26 @@ class _GifsSearchViewState extends State<GifsSearchView> {
 
   @override
   void initState() {
-    widget.pagingController.addListener(() {
+    super.initState();
+
+    widget.pagingController.addStatusListener(_updateItemsCount);
+
+    _itemsCount = widget.pagingController.itemList?.length ?? 0;
+  }
+
+  @override
+  void dispose() {
+    widget.pagingController.removeStatusListener(_updateItemsCount);
+
+    super.dispose();
+  }
+
+  void _updateItemsCount(PagingStatus status) {
+    if (status == PagingStatus.completed) {
       setState(() {
         _itemsCount = widget.pagingController.itemList?.length ?? 0;
       });
-    });
-
-    _itemsCount = widget.pagingController.itemList?.length ?? 0;
-
-    super.initState();
+    }
   }
 
   @override
