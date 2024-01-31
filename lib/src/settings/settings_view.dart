@@ -25,7 +25,7 @@ class SettingsView extends StatelessWidget {
       return SanePadding(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 600),
+            constraints: const BoxConstraints(maxWidth: 800),
             child: Column(
               children: [
                 SanePadding(
@@ -48,10 +48,7 @@ class SettingsView extends StatelessWidget {
                         keyboardType: TextInputType.url,
                       ),
                     ),
-                    const SizedBox(
-                      width: 16,
-                      height: 16,
-                    ),
+                    const SizedBox.square(dimension: 16),
                     Expanded(
                       flex: isVertical ? 0 : 1,
                       child: TextField(
