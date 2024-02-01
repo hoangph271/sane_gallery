@@ -10,16 +10,18 @@ class SaneTitle extends StatelessWidget {
     return RichText(
         text: TextSpan(children: [
       TextSpan(
-          text: 'Sane',
+        text: 'sane',
           style: TextStyle(
               color: Theme.of(context).textTheme.titleLarge?.color,
-              fontSize: Theme.of(context).textTheme.titleLarge?.fontSize)),
+            fontWeight: FontWeight.bold,
+            fontSize: Theme.of(context).textTheme.titleLarge?.fontSize),
+      ),
       TextSpan(
           text: 'Gallery',
           style: TextStyle(
               color: Theme.of(context).textTheme.titleLarge?.color,
-              fontWeight: FontWeight.bold,
-              fontSize: Theme.of(context).textTheme.titleLarge?.fontSize)),
+            fontSize: Theme.of(context).textTheme.titleLarge?.fontSize),
+      ),
     ]));
   }
 }

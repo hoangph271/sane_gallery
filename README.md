@@ -1,18 +1,20 @@
 ![sane_gallery logo](android/app/src/main/res/drawable-mdpi/android12splash.png)
 
-<h1 style="font-weight: normal;">sane<b>Gallery</b></h1>
+<h1 style="font-weight: normal;">
+  <b>sane</b>Gallery
+</h1>
 
 [![Build APK](https://github.com/hoangph271/sane_gallery/actions/workflows/build.yml/badge.svg)](https://github.com/hoangph271/sane_gallery/actions/workflows/build.yml)
 
-sane**Gallery** is the Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
+**sane**Gallery is the Flutter reimplementation of [gallereasy](https://github.com/hoangph271/gallereasy), a web app for searching & saving GIFs.
 
 ## Deployed Web Version
 
-Check out the live version of [**saneGallery** on the Web.](https://sane-gallery.netlify.app/)
+Check out the live version of [**sane**Gallery on the Web.](https://sane-gallery.netlify.app/)
 
 ## Android Build
 
-If you prefer to use Sane Gallery on your Android device, you can download the APK files for the latest release:
+If you prefer to use **sane**Gallery on your Android device, you can download the APK files for the latest release:
 
 - [Download APK for ARM64-v8a](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.3-alpha/app-arm64-v8a-release.apk)
 - [Download APK for ARM-v7a](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.3-alpha/app-armeabi-v7a-release.apk)
@@ -33,7 +35,7 @@ Additionally, you can verify the integrity of the downloaded APK files by checki
 - [SHA1 for x86_64 APK](https://github.com/hoangph271/sane_gallery/releases/download/v0.0.3-alpha/app-x86_64-release.apk.sha1)
 
 ## Getting Started
-To get started with Sane**Gallery**, follow these steps:
+To get started with **sane**Gallery, follow these steps:
 
 ```bash
 # Clone the repository:
@@ -52,10 +54,10 @@ flutter run
 ## Tasklist:
 
 - [ ] no more results banner
-- [ ] [The search box not visible on the web after splash screen disappeared](https://github.com/hoangph271/sane_gallery/issues/9)
 <details>
   <summary>Done</summary>
 
+- [x] [The search box not visible on the web after splash screen disappeared](https://github.com/hoangph271/sane_gallery/issues/9)  
 - [x] User toolbox  
 - [x] macos support  
 - [x] splash screen  
