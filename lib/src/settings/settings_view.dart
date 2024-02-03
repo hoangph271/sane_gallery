@@ -62,6 +62,8 @@ class SettingsView extends StatelessWidget {
                         keyboardType: TextInputType.text,
                       ),
                     ),
+                    const SizedBox.square(dimension: 16),
+                    const MagicToolboxButton()
                   ],
                 ),
                 SanePadding(
@@ -85,27 +87,37 @@ class SettingsView extends StatelessWidget {
                     ],
                   ),
                 ),
-                SanePadding(
-                    child: UnconstrainedBox(
-                  child: FancyElevatedButton(
-                    label: const Text('Magic Toolbox'),
-                    onPressed: () {
-                      context.go(MagicToolbox.pathName);
-                    },
-                    icon: SvgPicture.asset(
-                      'assets/svg/magic-wand.svg',
-                      width: 24,
-                      height: 24,
-                      colorFilter: ColorFilter.mode(
-                          Theme.of(context).primaryColor, BlendMode.srcIn),
-                    ),
-                  ),
-                )),
+                // const SanePadding(child: MagicToolboxButton()),
               ],
             ),
           ),
         ),
       );
     });
+  }
+}
+
+class MagicToolboxButton extends StatelessWidget {
+  const MagicToolboxButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UnconstrainedBox(
+      child: FancyElevatedButton(
+        label: const Text('Magic Toolbox'),
+        onPressed: () {
+          context.go(MagicToolbox.pathName);
+        },
+        icon: SvgPicture.asset(
+          'assets/svg/magic-wand.svg',
+          width: 24,
+          height: 24,
+          colorFilter:
+              ColorFilter.mode(Theme.of(context).primaryColor, BlendMode.srcIn),
+        ),
+      ),
+    );
   }
 }
