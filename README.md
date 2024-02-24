@@ -51,9 +51,13 @@ flutter pub get
 flutter run
 ```
 
+## Vision:
+
 ## Tasklist:
 
-- [ ] no more results banner
+- [ ] Keyboard navigation between pictures
+- [ ] Local files accessing, make it a real gallery
+
 <details>
   <summary>Done</summary>
 
