@@ -2,25 +2,27 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
-import 'package:sane_gallery/src/gifs/gifs_controller.dart';
-import 'package:sane_gallery/src/gifs/gifs_favorites/favorited_gifs_view.dart';
-import 'package:sane_gallery/src/gifs/gif_model.dart';
-import 'package:sane_gallery/src/gifs/gifs_search/gifs_search_view.dart';
+import 'package:sane_gallery/src/main/gifs_controller.dart';
+import 'package:sane_gallery/src/main/gifs_favorites/favorited_gifs_view.dart';
+import 'package:sane_gallery/src/main/gif_model.dart';
+import 'package:sane_gallery/src/main/gifs_search/gifs_search_view.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
 import 'package:sane_gallery/src/settings/settings_view.dart';
 import 'package:sane_gallery/src/widgets/sane_title.dart';
 import 'package:http/http.dart' as http;
 
-class GifsView extends StatefulWidget {
+import 'gallery_view.dart';
+
+class MainView extends StatefulWidget {
   static const pathName = '/';
 
-  const GifsView({super.key});
+  const MainView({super.key});
 
   @override
-  State<GifsView> createState() => _GifsViewState();
+  State<MainView> createState() => _MainViewState();
 }
 
-class _GifsViewState extends State<GifsView> {
+class _MainViewState extends State<MainView> {
   final _searchController = TextEditingController();
   final _pagingController = PagingController<int, GifObject>(
     firstPageKey: 0,
@@ -97,6 +99,7 @@ class _GifsViewState extends State<GifsView> {
               listenable: gifsController,
               builder: (context, child) {
                 return TabBarView(children: [
+                  GalleryView(),
                   GifsSearchView(
                     pagingController: _pagingController,
                     searchController: _searchController,
@@ -115,6 +118,10 @@ class _GifsViewState extends State<GifsView> {
             ),
             bottomNavigationBar: TabBar(
               tabs: [
+                const Tab(
+                  icon: Icon(Icons.photo_library_outlined),
+                  text: 'Gallery',
+                ),
                 const Tab(
                   icon: Icon(Icons.image_search),
                   text: 'Search',

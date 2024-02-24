@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sane_gallery/src/gifs/gifs_service.dart';
+import 'package:sane_gallery/src/main/gifs_service.dart';
 
 class GifsController with ChangeNotifier {
   final GifsService _gifsService;

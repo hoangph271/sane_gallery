@@ -32,7 +32,7 @@ class SaneGalleryApp extends StatelessWidget {
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
-          routerConfig: saneRouter,
+          routerConfig: saneGalleryRouter,
         );
       },
     );
