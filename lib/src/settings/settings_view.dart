@@ -62,9 +62,10 @@ class SettingsView extends StatelessWidget {
                         keyboardType: TextInputType.text,
                       ),
                     ),
-                    const SizedBox.square(dimension: 16),
-                    const MagicToolboxButton()
                   ],
+                ),
+                const SanePadding(
+                  child: MagicToolboxButton(),
                 ),
                 SanePadding(
                   child: Column(

@@ -90,7 +90,7 @@ class _MainViewState extends State<MainView> {
 
     return SafeArea(
       child: DefaultTabController(
-          length: 3,
+          length: 4,
           child: Scaffold(
             appBar: AppBar(
               title: const SaneTitle(),
@@ -99,7 +99,7 @@ class _MainViewState extends State<MainView> {
               listenable: gifsController,
               builder: (context, child) {
                 return TabBarView(children: [
-                  GalleryView(),
+                  const GalleryView(),
                   GifsSearchView(
                     pagingController: _pagingController,
                     searchController: _searchController,
