@@ -24,39 +24,32 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   final _searchController = TextEditingController();
-  final _pagingController = PagingController<int, GifObject>(
-    firstPageKey: 0,
+  late final _pagingController = PagingController<int, GifObject>(
+    getNextPageKey: (state) {
+      if (state.lastPageIsEmpty) return null;
+      return state.nextIntPageKey;
+    },
+    fetchPage: (pageKey) async {
+      if (_searchController.text.isEmpty) {
+        return [];
+      }
+
+      final result = await _fetchGifs(_searchController.text, pageKey);
+      final gifs = result.gifObjects;
+      final pagination = result.pagination;
+
+      setState(() {
+        _totalItemsCount = pagination.totalCount;
+      });
+
+      return gifs;
+    },
   );
   var _totalItemsCount = 0;
 
   @override
   void initState() {
     super.initState();
-
-    _pagingController.addPageRequestListener((offset) {
-      if (_searchController.text.isEmpty) {
-        _pagingController.appendLastPage([]);
-        return;
-      }
-
-      _fetchGifs(_searchController.text, offset).then((result) {
-        final gifs = result.gifObjects;
-        final pagination = result.pagination;
-        final isLastPage =
-            pagination.totalCount == pagination.offset + pagination.count;
-
-        setState(() {
-          _totalItemsCount = pagination.totalCount;
-        });
-
-        if (isLastPage) {
-          _pagingController.appendLastPage(gifs);
-        } else {
-          final nextOffset = offset + gifs.length;
-          _pagingController.appendPage(gifs, nextOffset);
-        }
-      });
-    });
   }
 
   Future<GifFetchResult> _fetchGifs(String keyword, int offset) async {
@@ -79,6 +72,13 @@ class _MainViewState extends State<MainView> {
       return;
     }
     _pagingController.refresh();
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override

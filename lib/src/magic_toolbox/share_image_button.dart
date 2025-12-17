@@ -31,13 +31,17 @@ class _ShareImageButtonState extends State<ShareImageButton> {
 
                 final bytes = await widget.widgetsToImageController.capture();
 
-                await Share.shareXFiles([
-                  XFile.fromData(
-                    bytes!,
-                    name: 'saneGallery ${DateTime.now().toIso8601String()}.png',
-                    mimeType: 'image/png',
-                  ),
-                ]);
+                final params = ShareParams(
+                  files: [
+                    XFile.fromData(
+                      bytes!,
+                      name: 'saneGallery ${DateTime.now().toIso8601String()}.png',
+                      mimeType: 'image/png',
+                    ),
+                  ],
+                );
+
+                await SharePlus.instance.share(params);
               } finally {
                 setState(() {
                   _isSharing = false;

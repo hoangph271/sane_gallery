@@ -32,32 +32,6 @@ class GifsSearchView extends StatefulWidget {
 }
 
 class _GifsSearchViewState extends State<GifsSearchView> {
-  int _itemsCount = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    widget.pagingController.addStatusListener(_updateItemsCount);
-
-    _itemsCount = widget.pagingController.itemList?.length ?? 0;
-  }
-
-  @override
-  void dispose() {
-    widget.pagingController.removeStatusListener(_updateItemsCount);
-
-    super.dispose();
-  }
-
-  void _updateItemsCount(PagingStatus status) {
-    if (status == PagingStatus.completed) {
-      setState(() {
-        _itemsCount = widget.pagingController.itemList?.length ?? 0;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final GifsSearchView(
@@ -76,66 +50,86 @@ class _GifsSearchViewState extends State<GifsSearchView> {
             ),
           ),
         ),
-        if (_itemsCount > 0)
-          Center(
-              child: Text(
-                  'Loaded $_itemsCount/${widget.totalItemsCount} images.')),
         Expanded(
           child: SanePadding(
             paddingSize: PaddingSize.small,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final crossAxisCount = constraints.maxWidth ~/ 300 > 6
-                    ? 6
-                    : constraints.maxWidth ~/ 300;
-                return PagedGridView<int, GifObject>(
-                  pagingController: widget.pagingController,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount > 0 ? crossAxisCount : 1,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                    childAspectRatio: 4 / 3,
-                  ),
-                  builderDelegate: PagedChildBuilderDelegate<GifObject>(
-                    noItemsFoundIndicatorBuilder: (context) => Center(
-                      child: Column(
-                        children: [
-                          if (searchController.text.isEmpty) ...[
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 16),
-                              child: Text('Start by typing a keyword'),
+            child: PagingListener<int, GifObject>(
+              controller: widget.pagingController,
+              builder: (context, state, fetchNextPage) {
+                final itemsCount = state.items?.length ?? 0;
+                return Column(
+                  children: [
+                    if (itemsCount > 0)
+                      Center(
+                        child: Text(
+                          'Loaded $itemsCount/${widget.totalItemsCount} images.',
+                        ),
+                      ),
+                    Expanded(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final crossAxisCount =
+                              constraints.maxWidth ~/ 300 > 6
+                                  ? 6
+                                  : constraints.maxWidth ~/ 300;
+                          return PagedGridView<int, GifObject>(
+                            state: state,
+                            fetchNextPage: fetchNextPage,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount:
+                                  crossAxisCount > 0 ? crossAxisCount : 1,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                              childAspectRatio: 4 / 3,
                             ),
-                            CachedNetworkImage(
-                              imageUrl:
-                                  'https://i.giphy.com/RMwYOO5e8pr1lhL8K7.webp',
-                              imageBuilder: (context, imageProvider) {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(300),
-                                  child: Container(
-                                    width: 300,
-                                    height: 300,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
-                                    )),
-                                  ),
-                                );
-                              },
+                            builderDelegate:
+                                PagedChildBuilderDelegate<GifObject>(
+                              noItemsFoundIndicatorBuilder: (context) => Center(
+                                child: Column(
+                                  children: [
+                                    if (searchController.text.isEmpty) ...[
+                                      const Padding(
+                                        padding: EdgeInsets.only(bottom: 16),
+                                        child: Text('Start by typing a keyword'),
+                                      ),
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            'https://i.giphy.com/RMwYOO5e8pr1lhL8K7.webp',
+                                        imageBuilder: (context, imageProvider) {
+                                          return ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(300),
+                                            child: Container(
+                                              width: 300,
+                                              height: 300,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                              )),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ] else ...[
+                                      const Text(
+                                          'Sorry, no GIFs found. Try another keyword...!'),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                              itemBuilder: (context, gif, index) => GifCard(
+                                settingsController: widget.settingsController,
+                                gif: gif,
+                                gifsController: widget.gifsController,
+                              ),
                             ),
-                          ] else ...[
-                            const Text(
-                                'Sorry, no GIFs found. Try another keyword...!'),
-                          ],
-                        ],
+                          );
+                        },
                       ),
                     ),
-                    itemBuilder: (context, gif, index) => GifCard(
-                      settingsController: widget.settingsController,
-                      gif: gif,
-                      gifsController: widget.gifsController,
-                    ),
-                  ),
+                  ],
                 );
               },
             ),

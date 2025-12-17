@@ -121,14 +121,14 @@ class _MagicToolboxState extends State<MagicToolbox> {
         name: fileName,
         bytes: bytes,
         mimeType: MimeType.png,
-        ext: 'png',
+        fileExtension: 'png',
       );
     } else {
       message = await FileSaver.instance.saveFile(
         name: fileName,
         bytes: bytes,
         mimeType: MimeType.png,
-        ext: 'png',
+        fileExtension: 'png',
       );
     }
 
