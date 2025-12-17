@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'package:sane_gallery/src/router.dart';
 import 'package:sane_gallery/src/settings/settings_controller.dart';
+
+import 'localization/app_localizations.dart';
 
 class SaneGalleryApp extends StatelessWidget {
   const SaneGalleryApp({super.key});
@@ -18,15 +18,8 @@ class SaneGalleryApp extends StatelessWidget {
       builder: (BuildContext context, Widget? _) {
         return MaterialApp.router(
           restorationScopeId: 'app',
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en', ''),
-          ],
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           onGenerateTitle: (BuildContext context) =>
               AppLocalizations.of(context)!.appTitle,
           theme: ThemeData(),

@@ -23,8 +23,8 @@ class CardCaption extends StatelessWidget {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Theme.of(context).secondaryHeaderColor.withOpacity(0.6),
-              Theme.of(context).primaryColor.withOpacity(0.6),
+              Theme.of(context).secondaryHeaderColor.withAlpha(150),
+              Theme.of(context).primaryColor.withAlpha(150),
             ],
           ),
         ),

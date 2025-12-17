@@ -25,7 +25,7 @@ class FancyElevatedButton extends StatelessWidget {
         child: icon,
       ),
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(0),
