@@ -115,8 +115,8 @@ class MagicToolboxButton extends StatelessWidget {
           'assets/svg/magic-wand.svg',
           width: 24,
           height: 24,
-          colorFilter:
-              ColorFilter.mode(Theme.of(context).primaryColor, BlendMode.srcIn),
+          colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.primary, BlendMode.srcIn),
         ),
       ),
     );
