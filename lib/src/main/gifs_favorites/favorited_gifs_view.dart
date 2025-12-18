@@ -25,8 +25,8 @@ class FavoritedGifsView extends StatefulWidget {
 class _FavoritedGifsViewState extends State<FavoritedGifsView> {
   late Future<List<GifObject>> _favoritedGifsFuture;
 
-  get _hasNoFavorites => widget.gifsController.favoriteIds.isEmpty;
-  get _hasFavorites => widget.gifsController.favoriteIds.isNotEmpty;
+  bool get _hasNoFavorites => widget.gifsController.favoriteIds.isEmpty;
+  bool get _hasFavorites => widget.gifsController.favoriteIds.isNotEmpty;
 
   @override
   void initState() {

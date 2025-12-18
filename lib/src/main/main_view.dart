@@ -67,7 +67,7 @@ class _MainViewState extends State<MainView> {
     return GifFetchResult.fromJson(jsonDecode(res.body));
   }
 
-  void _handleSearch(keyword) {
+  void _handleSearch(String keyword) {
     if (keyword.isEmpty) {
       return;
     }

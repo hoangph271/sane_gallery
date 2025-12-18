@@ -81,7 +81,7 @@ class Pagination {
   const Pagination(
       {required this.count, required this.offset, required this.totalCount});
 
-  static fromJson(Map<String, dynamic> json) {
+  static Pagination fromJson(Map<String, dynamic> json) {
     return Pagination(
       count: json['count'],
       offset: json['offset'],
