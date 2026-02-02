@@ -14,16 +14,8 @@ class FancyElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
+    return ElevatedButton(
       onPressed: onPressed,
-      label: Padding(
-        padding: const EdgeInsets.only(top: 12, bottom: 12, left: 8),
-        child: label,
-      ),
-      icon: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: icon,
-      ),
       style: ButtonStyle(
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           const RoundedRectangleBorder(
@@ -35,6 +27,21 @@ class FancyElevatedButton extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: icon,
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 12, bottom: 12, left: 8),
+              child: label,
+            ),
+          ),
+        ],
       ),
     );
   }

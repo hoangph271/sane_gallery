@@ -23,7 +23,8 @@ class SettingsView extends StatelessWidget {
       final isVertical = aspectRatio < 1;
 
       return SanePadding(
-        child: Center(
+        child: Align(
+          alignment: Alignment.topCenter,
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 800),
             child: Column(
@@ -32,63 +33,99 @@ class SettingsView extends StatelessWidget {
                   child: ToggleThemeButtons(
                       settingsController: settingsController),
                 ),
-                Flex(
-                  direction: isVertical ? Axis.vertical : Axis.horizontal,
-                  children: [
-                    Expanded(
-                      flex: isVertical ? 0 : 1,
-                      child: TextField(
-                        readOnly: true,
-                        controller: TextEditingController(
-                            text: settingsController.apiRoot),
-                        decoration: const InputDecoration(
-                          labelText: 'API Root',
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: TextInputType.url,
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Column(
+                        children: [
+                          if (isVertical)
+                            Column(
+                              children: [
+                                TextField(
+                                  readOnly: true,
+                                  controller: TextEditingController(
+                                      text: settingsController.apiRoot),
+                                  decoration: const InputDecoration(
+                                    labelText: 'API Root',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.url,
+                                ),
+                                const SizedBox.square(dimension: 16),
+                                TextField(
+                                  readOnly: true,
+                                  controller: TextEditingController(
+                                      text: settingsController.apiKey),
+                                  decoration: const InputDecoration(
+                                    labelText: 'API Key',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.text,
+                                ),
+                              ],
+                            )
+                          else
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    readOnly: true,
+                                    controller: TextEditingController(
+                                        text: settingsController.apiRoot),
+                                    decoration: const InputDecoration(
+                                      labelText: 'API Root',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    keyboardType: TextInputType.url,
+                                  ),
+                                ),
+                                const SizedBox.square(dimension: 16),
+                                Expanded(
+                                  child: TextField(
+                                    readOnly: true,
+                                    controller: TextEditingController(
+                                        text: settingsController.apiKey),
+                                    decoration: const InputDecoration(
+                                      labelText: 'API Key',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    keyboardType: TextInputType.text,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          const SanePadding(
+                            child: MagicToolboxButton(),
+                          ),
+                          SanePadding(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Page size: ${settingsController.pageSize}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                Slider(
+                                  min: 8,
+                                  max: 24,
+                                  divisions: 4,
+                                  label: settingsController.pageSize.toString(),
+                                  onChanged: (value) {
+                                    settingsController
+                                        .updatePageSize(value.toInt());
+                                  },
+                                  value: settingsController.pageSize.toDouble(),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // const SanePadding(child: MagicToolboxButton()),
+                        ],
                       ),
                     ),
-                    const SizedBox.square(dimension: 16),
-                    Expanded(
-                      flex: isVertical ? 0 : 1,
-                      child: TextField(
-                        readOnly: true,
-                        controller: TextEditingController(
-                            text: settingsController.apiKey),
-                        decoration: const InputDecoration(
-                          labelText: 'API Key',
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: TextInputType.text,
-                      ),
-                    ),
-                  ],
-                ),
-                const SanePadding(
-                  child: MagicToolboxButton(),
-                ),
-                SanePadding(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Page size: ${settingsController.pageSize}',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Slider(
-                        min: 8,
-                        max: 24,
-                        divisions: 4,
-                        label: settingsController.pageSize.toString(),
-                        onChanged: (value) {
-                          settingsController.updatePageSize(value.toInt());
-                        },
-                        value: settingsController.pageSize.toDouble(),
-                      ),
-                    ],
                   ),
                 ),
-                // const SanePadding(child: MagicToolboxButton()),
               ],
             ),
           ),
@@ -105,19 +142,20 @@ class MagicToolboxButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UnconstrainedBox(
-      child: FancyElevatedButton(
-        label: const Text('Magic Toolbox'),
-        onPressed: () {
-          context.go(MagicToolbox.pathName);
-        },
-        icon: SvgPicture.asset(
-          'assets/svg/magic-wand.svg',
-          width: 24,
-          height: 24,
-          colorFilter: ColorFilter.mode(
-              Theme.of(context).colorScheme.primary, BlendMode.srcIn),
-        ),
+    return FancyElevatedButton(
+      label: const Text(
+        'Magic Toolbox',
+        overflow: TextOverflow.ellipsis,
+      ),
+      onPressed: () {
+        context.go(MagicToolbox.pathName);
+      },
+      icon: SvgPicture.asset(
+        'assets/svg/magic-wand.svg',
+        width: 24,
+        height: 24,
+        colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.primary, BlendMode.srcIn),
       ),
     );
   }
